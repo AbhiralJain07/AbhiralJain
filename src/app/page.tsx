@@ -12,12 +12,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Magnetic from "@/components/Magnetic";
 import { getProjects, getProfile } from "@/lib/supabase";
 
-// Lazy-load the React Three Fiber Canvas component to prevent SSR hydration lag
-const ParticleSphere = dynamic(() => import("@/components/ParticleSphere"), {
+// Lazy-load the interactive 3D Spline Scene to prevent SSR hydration lag
+const SplineScene = dynamic(() => import("@/components/ui/splite").then(mod => mod.SplineScene), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center text-xs text-zinc-500 font-mono tracking-widest uppercase">
-      [ Initializing 3D Canvas ]
+      [ Initializing 3D Scene ]
     </div>
   ),
 });
@@ -333,9 +333,12 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 3D Particle blob sphere canvas */}
+          {/* 3D Spline Scene canvas */}
           <div className="w-full h-[350px] sm:h-[450px] lg:h-[600px] order-1 lg:order-2 relative flex items-center justify-center">
-            <ParticleSphere />
+            <SplineScene 
+              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+              className="w-full h-full"
+            />
           </div>
         </div>
       </section>
