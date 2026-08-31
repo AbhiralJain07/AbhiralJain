@@ -532,7 +532,7 @@ export default function Home() {
           <div className="flex items-center space-x-8">
             <Magnetic>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/jainabhiral/"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center space-x-1.5 hover:text-accent transition-colors"
@@ -546,7 +546,7 @@ export default function Home() {
             </Magnetic>
             <Magnetic>
               <a
-                href="https://github.com"
+                href="https://github.com/AbhiralJain07"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center space-x-1.5 hover:text-accent transition-colors"
