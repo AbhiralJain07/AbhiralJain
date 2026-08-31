@@ -3,6 +3,8 @@ import { Inter, Syne } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
+import AnalyticsHUD from "@/components/AnalyticsHUD";
+import TerminalCLI from "@/components/TerminalCLI";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,6 +38,8 @@ export default function RootLayout({
       >
         <SmoothScroll>
           <CustomCursor />
+          <AnalyticsHUD />
+          <TerminalCLI />
           {children}
         </SmoothScroll>
       </body>

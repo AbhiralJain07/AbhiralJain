@@ -169,6 +169,14 @@ export default function Home() {
           <Magnetic><button onClick={() => handleScrollTo("skills")} className="hover:text-accent transition-colors py-2 text-[#f5f5f7]">Skills</button></Magnetic>
           <Magnetic><button onClick={() => handleScrollTo("contact")} className="hover:text-accent transition-colors py-2 text-[#f5f5f7]">Contact</button></Magnetic>
           <Magnetic>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("toggle-terminal"))}
+              className="hover:text-accent transition-colors py-2 text-[#f5f5f7] uppercase font-medium text-xs tracking-widest"
+            >
+              Terminal
+            </button>
+          </Magnetic>
+          <Magnetic>
             <Link href="/admin" className="px-5 py-2 rounded-full border border-[#f5f5f7]/30 hover:border-accent hover:text-accent transition-all duration-300 text-xs tracking-widest uppercase font-medium text-[#f5f5f7]">
               CMS Admin
             </Link>
@@ -177,6 +185,12 @@ export default function Home() {
 
         {/* Mobile Nav Button */}
         <div className="md:hidden flex items-center space-x-4">
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent("toggle-terminal"))}
+            className="text-xs px-3 py-1.5 border border-[#f5f5f7]/20 rounded-full text-[#f5f5f7]"
+          >
+            CLI
+          </button>
           <Link href="/admin" className="text-xs px-3 py-1.5 border border-[#f5f5f7]/20 rounded-full text-[#f5f5f7]">CMS</Link>
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#f5f5f7] p-2">
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -191,6 +205,15 @@ export default function Home() {
           <button onClick={() => handleScrollTo("work")} className="text-4xl font-display text-left hover:text-accent">02. Selected Work</button>
           <button onClick={() => handleScrollTo("skills")} className="text-4xl font-display text-left hover:text-accent">03. Stack</button>
           <button onClick={() => handleScrollTo("contact")} className="text-4xl font-display text-left hover:text-accent">04. Get In Touch</button>
+          <button
+            onClick={() => {
+              setMenuOpen(false);
+              window.dispatchEvent(new CustomEvent("toggle-terminal"));
+            }}
+            className="text-4xl font-display text-left hover:text-accent text-accent"
+          >
+            05. CLI Console
+          </button>
         </div>
       )}
 
@@ -368,21 +391,21 @@ export default function Home() {
           <div className="animate-marquee whitespace-nowrap text-4xl md:text-7xl font-display font-extrabold tracking-tight uppercase flex items-center space-x-12 select-none text-zinc-800">
             {Array.from({ length: 4 }).map((_, i) => (
               <React.Fragment key={i}>
-                <span className="hover:text-accent transition-colors duration-300">TypeScript</span>
+                <span className="hover:text-accent transition-colors duration-3000">TypeScript</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-300">Next.js</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">Next.js</span>
                 <span className="text-[#f5f5f7]/20">•</span>
-                <span className="hover:text-accent transition-colors duration-300">Python</span>
+                <span className="hover:text-accent transition-colors duration-3000">Python</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-300">Machine Learning</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">Machine Learning</span>
                 <span className="text-[#f5f5f7]/20">•</span>
-                <span className="hover:text-accent transition-colors duration-300">GSAP</span>
+                <span className="hover:text-accent transition-colors duration-3000">GSAP</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-300">Three.js</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">Three.js</span>
                 <span className="text-[#f5f5f7]/20">•</span>
-                <span className="hover:text-accent transition-colors duration-300">PostgreSQL</span>
+                <span className="hover:text-accent transition-colors duration-3000">PostgreSQL</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-300">n8n Automation</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">n8n Automation</span>
                 <span className="text-[#f5f5f7]/20">•</span>
               </React.Fragment>
             ))}
