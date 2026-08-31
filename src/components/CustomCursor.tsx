@@ -10,6 +10,33 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
 
+  // Reference to hold active colors dynamically driven by ML HUD
+  const activeColorRef = useRef("#00e5ff");
+
+  // Telemetry listener for visitor archetype changes
+  useEffect(() => {
+    const handleArchetypeChange = (e: Event) => {
+      const type = (e as CustomEvent).detail.activeArchetype;
+      
+      let themeColor = "#00e5ff"; // default cyan
+      if (type === "RECRUITER") themeColor = "#ffb300"; // warm orange
+      else if (type === "ENGINEER") themeColor = "#d500f9"; // violet pink
+
+      activeColorRef.current = themeColor;
+
+      // Recolors the active cursor dot and ring smoothly
+      if (dotRef.current) {
+        gsap.to(dotRef.current, { backgroundColor: themeColor, duration: 0.4 });
+      }
+      if (ringRef.current) {
+        gsap.to(ringRef.current, { borderColor: themeColor, duration: 0.4 });
+      }
+    };
+
+    window.addEventListener("archetype-change", handleArchetypeChange);
+    return () => window.removeEventListener("archetype-change", handleArchetypeChange);
+  }, []);
+
   useEffect(() => {
     // Detect touch device or hoverless pointer
     const checkDevice = () => {
@@ -75,12 +102,12 @@ export default function CustomCursor() {
         const text = projectCard.getAttribute("data-cursor") || "VIEW";
         setCursorText(text);
         
-        // Morph ring into a larger view pill
+        // Morph ring into a larger view pill matching active telemetry color
         gsap.to(ring, {
           width: 90,
           height: 90,
-          backgroundColor: "rgba(0, 229, 255, 0.2)",
-          borderColor: "#00e5ff",
+          backgroundColor: `${activeColorRef.current}33`, // 20% opacity matching archetype color
+          borderColor: activeColorRef.current,
           borderWidth: "1.5px",
           duration: 0.3,
           ease: "power2.out",
@@ -90,18 +117,18 @@ export default function CustomCursor() {
           duration: 0.2,
         });
       } else if (interactive) {
-        // Simple link scale effect
+        // Simple link scale effect matching active telemetry color
         gsap.to(ring, {
           scale: 1.8,
-          borderColor: "#00e5ff",
-          backgroundColor: "rgba(0, 229, 255, 0.05)",
+          borderColor: activeColorRef.current,
+          backgroundColor: `${activeColorRef.current}0d`, // 5% opacity matching archetype color
           borderWidth: "1px",
           duration: 0.3,
           ease: "power2.out",
         });
         gsap.to(dot, {
           scale: 0.5,
-          backgroundColor: "#00e5ff",
+          backgroundColor: activeColorRef.current,
           duration: 0.2,
         });
       }
@@ -137,7 +164,7 @@ export default function CustomCursor() {
         });
         gsap.to(dot, {
           scale: 1,
-          backgroundColor: "#00e5ff",
+          backgroundColor: activeColorRef.current,
           duration: 0.2,
         });
       }
@@ -155,7 +182,7 @@ export default function CustomCursor() {
         });
         gsap.to(dot, {
           scale: 1,
-          backgroundColor: "#00e5ff",
+          backgroundColor: activeColorRef.current,
           duration: 0.2,
         });
       }
@@ -213,8 +240,8 @@ export default function CustomCursor() {
       {/* Inner Dot */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-accent pointer-events-none"
-        style={{ willChange: "transform" }}
+        className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none"
+        style={{ willChange: "transform", backgroundColor: activeColorRef.current }}
       />
     </div>
   );

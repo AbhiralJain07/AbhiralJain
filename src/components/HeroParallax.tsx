@@ -171,6 +171,28 @@ export default function HeroParallax() {
           </h1>
         </div>
 
+        {/* ================= HUD CORNER TARGET BRACKETS (Depth Layer: translateZ(20px)) ================= */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-15 transform-style-3d flex items-center justify-center"
+          style={{ transform: "translateZ(20px)" }}
+        >
+          {/* Virtual target container representing the crop boundaries */}
+          <div className="relative w-[280px] h-[370px] sm:w-[350px] sm:h-[460px] transition-all duration-700 ease-out border border-white/5 group-hover:border-[#00e5ff]/20 group-hover:scale-[1.03] rounded">
+            {/* Top-Left Bracket */}
+            <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/20 transition-all duration-500 ease-out group-hover:border-accent group-hover:-translate-x-2.5 group-hover:-translate-y-2.5" />
+            {/* Top-Right Bracket */}
+            <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-white/20 transition-all duration-500 ease-out group-hover:border-accent group-hover:translate-x-2.5 group-hover:-translate-y-2.5" />
+            {/* Bottom-Left Bracket */}
+            <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-white/20 transition-all duration-500 ease-out group-hover:border-accent group-hover:-translate-x-2.5 group-hover:translate-y-2.5" />
+            {/* Bottom-Right Bracket */}
+            <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-white/20 transition-all duration-500 ease-out group-hover:border-accent group-hover:translate-x-2.5 group-hover:translate-y-2.5" />
+            
+            {/* Target Crosshair lines */}
+            <div className="absolute top-1/2 left-2 right-2 h-[1px] bg-white/5 scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-center" />
+            <div className="absolute left-1/2 top-2 bottom-2 w-[1px] bg-white/5 scale-y-0 group-hover:scale-y-100 transition-transform duration-700 origin-center" />
+          </div>
+        </div>
+
         {/* ================= FOREGROUND PORTRAIT (Cutout - Center Layer) ================= */}
         <div
           ref={imageRef}

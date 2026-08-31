@@ -27,6 +27,7 @@ export default function Home() {
   const [profile, setProfile] = useState<any>({ bio_text: "", availability_status: true });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const heroRef = useRef<HTMLDivElement>(null);
   const scrollCueRef = useRef<HTMLDivElement>(null);
@@ -43,6 +44,15 @@ export default function Home() {
       setProfile(prof);
     }
     loadData();
+  }, []);
+
+  // Monitor scroll for nav capsule transitions
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // GSAP animations for page load & ScrollTrigger
@@ -157,27 +167,73 @@ export default function Home() {
     <main className="relative min-h-screen selection:bg-accent selection:text-black">
       
       {/* --- HEADER / NAVIGATION --- */}
-      <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
-        <Link href="/" className="text-xl font-display font-bold tracking-widest text-[#f5f5f7] hover:text-accent transition-colors duration-300">
+      <header
+        className={`fixed z-50 transition-all duration-500 ease-out flex items-center justify-between ${
+          scrolled
+            ? "top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-[850px] bg-[#0c0c0e]/85 border border-borderDark backdrop-blur-md px-8 py-3.5 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.65)]"
+            : "top-0 left-0 w-full px-6 py-6 md:px-12 md:py-8 mix-blend-difference"
+        }`}
+      >
+        <Link
+          href="/"
+          className="text-xl font-display font-bold tracking-widest text-[#f5f5f7] hover:text-accent transition-colors duration-300"
+        >
           AJ.
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-10 text-xs tracking-widest uppercase font-medium">
-          <Magnetic><button onClick={() => handleScrollTo("about")} className="hover:text-accent transition-colors py-2 text-[#f5f5f7]">About</button></Magnetic>
-          <Magnetic><button onClick={() => handleScrollTo("work")} className="hover:text-accent transition-colors py-2 text-[#f5f5f7]">Work</button></Magnetic>
-          <Magnetic><button onClick={() => handleScrollTo("skills")} className="hover:text-accent transition-colors py-2 text-[#f5f5f7]">Skills</button></Magnetic>
-          <Magnetic><button onClick={() => handleScrollTo("contact")} className="hover:text-accent transition-colors py-2 text-[#f5f5f7]">Contact</button></Magnetic>
+          <Magnetic>
+            <button
+              onClick={() => handleScrollTo("about")}
+              className={`transition-colors py-2 ${scrolled ? "text-zinc-400 hover:text-accent" : "text-[#f5f5f7] hover:text-accent"}`}
+            >
+              About
+            </button>
+          </Magnetic>
+          <Magnetic>
+            <button
+              onClick={() => handleScrollTo("work")}
+              className={`transition-colors py-2 ${scrolled ? "text-zinc-400 hover:text-accent" : "text-[#f5f5f7] hover:text-accent"}`}
+            >
+              Work
+            </button>
+          </Magnetic>
+          <Magnetic>
+            <button
+              onClick={() => handleScrollTo("skills")}
+              className={`transition-colors py-2 ${scrolled ? "text-zinc-400 hover:text-accent" : "text-[#f5f5f7] hover:text-accent"}`}
+            >
+              Skills
+            </button>
+          </Magnetic>
+          <Magnetic>
+            <button
+              onClick={() => handleScrollTo("contact")}
+              className={`transition-colors py-2 ${scrolled ? "text-zinc-400 hover:text-accent" : "text-[#f5f5f7] hover:text-accent"}`}
+            >
+              Contact
+            </button>
+          </Magnetic>
           <Magnetic>
             <button
               onClick={() => window.dispatchEvent(new CustomEvent("toggle-terminal"))}
-              className="hover:text-accent transition-colors py-2 text-[#f5f5f7] uppercase font-medium text-xs tracking-widest"
+              className={`transition-colors py-2 uppercase font-medium text-xs tracking-widest ${
+                scrolled ? "text-zinc-400 hover:text-accent" : "text-[#f5f5f7] hover:text-accent"
+              }`}
             >
               Terminal
             </button>
           </Magnetic>
           <Magnetic>
-            <Link href="/admin" className="px-5 py-2 rounded-full border border-[#f5f5f7]/30 hover:border-accent hover:text-accent transition-all duration-300 text-xs tracking-widest uppercase font-medium text-[#f5f5f7]">
+            <Link
+              href="/admin"
+              className={`px-5 py-2 rounded-full border transition-all duration-300 text-xs tracking-widest uppercase font-medium ${
+                scrolled
+                  ? "border-zinc-700 hover:border-accent hover:text-accent text-zinc-300 bg-[#121214]/50"
+                  : "border-[#f5f5f7]/30 hover:border-accent hover:text-accent text-[#f5f5f7]"
+              }`}
+            >
               CMS Admin
             </Link>
           </Magnetic>

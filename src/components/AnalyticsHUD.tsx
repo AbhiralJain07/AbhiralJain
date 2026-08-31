@@ -282,6 +282,8 @@ export default function AnalyticsHUD() {
         idleRatio,
         dwellTime
       };
+      // Dispatch custom window event to notify other components of predicted archetype changes
+      window.dispatchEvent(new CustomEvent("archetype-change", { detail: { activeArchetype } }));
     }
   }, [activeArchetype, probabilities, hoverCount, cursorVelocity, scrollDepth, idleRatio, dwellTime]);
 
