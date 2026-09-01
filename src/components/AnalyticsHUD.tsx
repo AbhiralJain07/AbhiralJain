@@ -228,7 +228,7 @@ export default function AnalyticsHUD() {
       engineerScore -= (scrollVelocity * 0.02);
 
       // Explorer: Baseline / Balanced. Starts high, slowly decays.
-      let explorerScore = Math.max(0, 45 - (dwellTime * 0.8));
+      const explorerScore = Math.max(0, 45 - (dwellTime * 0.8));
 
       // Rectify scores to absolute non-negatives
       const rScore = Math.max(0, recruiterScore);
@@ -273,7 +273,7 @@ export default function AnalyticsHUD() {
   // Publish telemetry to window for Terminal CLI integration
   useEffect(() => {
     if (typeof window !== "undefined") {
-      (window as any).__visitorTelemetry = {
+      (window as unknown as { __visitorTelemetry: unknown }).__visitorTelemetry = {
         activeArchetype,
         probabilities,
         hoverCount,

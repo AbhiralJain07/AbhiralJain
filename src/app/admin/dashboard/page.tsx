@@ -17,7 +17,6 @@ import {
   ToggleLeft,
   ToggleRight,
   Code,
-  Link as LinkIcon,
   Globe,
 } from "lucide-react";
 import { Github } from "@/components/Icons";
@@ -32,6 +31,8 @@ import {
   isAdminAuthenticated,
   logoutAdmin,
   supabase,
+  Project,
+  Profile,
 } from "@/lib/supabase";
 
 export default function AdminDashboard() {
@@ -44,8 +45,8 @@ export default function AdminDashboard() {
     }
   }, [router]);
 
-  const [projects, setProjects] = useState<any[]>([]);
-  const [profile, setProfile] = useState<any>({ bio_text: "", availability_status: true });
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [profile, setProfile] = useState<Profile>({ bio_text: "", availability_status: true });
   const [loading, setLoading] = useState(true);
   const [isDemo, setIsDemo] = useState(true);
 
@@ -104,7 +105,7 @@ export default function AdminDashboard() {
   };
 
   // --- Project Actions ---
-  const handleEditProject = (proj: any) => {
+  const handleEditProject = (proj: Project) => {
     setEditingId(proj.id);
     setProjectForm({
       title: proj.title || "",
@@ -153,7 +154,7 @@ export default function AdminDashboard() {
         technologies: parsedTech,
       };
 
-      const saved = await saveProject(toSave);
+      await saveProject(toSave);
       
       // Update local state
       const list = await getProjects();
@@ -408,7 +409,7 @@ export default function AdminDashboard() {
                     <div className="relative">
                       <input
                         type="url"
-                        placeholder="https://github.com"
+                        placeholder="https://github.com/AbhiralJain07"
                         className="w-full bg-zinc-950 border border-borderDark focus:border-accent text-sm rounded-xl py-3 px-4 pl-10 text-[#f5f5f7] outline-none"
                         value={projectForm.github_url}
                         onChange={(e) =>

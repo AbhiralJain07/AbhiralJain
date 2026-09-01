@@ -86,7 +86,7 @@ export default function AdminLogin() {
             <Sparkles size={16} className="text-accent shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold text-accent block mb-0.5">Demo Sandbox Mode Active</span>
-              No Supabase environment variables detected. Log in using Email: <code className="text-[#f5f5f7] bg-zinc-800 px-1 py-0.5 rounded font-mono">admin</code> and Password: <code className="text-[#f5f5f7] bg-zinc-800 px-1 py-0.5 rounded font-mono">admin</code>. Data will be saved in your browser's local sandbox.
+              No Supabase environment variables detected. Log in using Email: <code className="text-[#f5f5f7] bg-zinc-800 px-1 py-0.5 rounded font-mono">admin</code> and Password: <code className="text-[#f5f5f7] bg-zinc-800 px-1 py-0.5 rounded font-mono">admin</code>. Data will be saved in your browser&apos;s local sandbox.
             </div>
           </div>
         )}

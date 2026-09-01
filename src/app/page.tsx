@@ -4,13 +4,17 @@ import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Mail, Menu, X, ArrowDown } from "lucide-react";
+import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
 import { Github, Linkedin } from "@/components/Icons";
 import HeroParallax from "@/components/HeroParallax";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Magnetic from "@/components/Magnetic";
-import { getProjects, getProfile } from "@/lib/supabase";
+import { getProjects, getProfile, Project, Profile } from "@/lib/supabase";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // Lazy-load the interactive 3D Spline Scene to prevent SSR hydration lag
 const SplineScene = dynamic(() => import("@/components/ui/splite").then(mod => mod.SplineScene), {
@@ -23,8 +27,8 @@ const SplineScene = dynamic(() => import("@/components/ui/splite").then(mod => m
 });
 
 export default function Home() {
-  const [projects, setProjects] = useState<any[]>([]);
-  const [profile, setProfile] = useState<any>({ bio_text: "", availability_status: true });
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [profile, setProfile] = useState<Profile>({ bio_text: "", availability_status: true });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -496,7 +500,7 @@ export default function Home() {
           
           <div className="flex items-center space-x-2 mb-10">
             <div className="w-8 h-[1px] bg-accent" />
-            <span className="text-xs tracking-widest uppercase text-accent font-bold">04 / Let's Connect</span>
+            <span className="text-xs tracking-widest uppercase text-accent font-bold">04 / Let&apos;s Connect</span>
           </div>
 
           {/* Magnetic Giant Text CTA */}
@@ -506,7 +510,7 @@ export default function Home() {
                 href="mailto:jainabhiral7@gmail.com"
                 className="text-4xl sm:text-6xl md:text-8xl font-display font-extrabold leading-none tracking-tight uppercase hover:text-accent transition-colors duration-500 block py-6 cursor-none"
               >
-                Let's Build <br /> Something.
+                Let&apos;s Build <br /> Something.
               </a>
             </Magnetic>
           </div>

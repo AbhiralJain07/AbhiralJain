@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 
@@ -10,14 +10,12 @@ export default function HeroParallax() {
   const imageRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
-  const [isHovered, setIsHovered] = useState(false);
-
   // GSAP quickTo references for ultra-smooth 60fps tracking
-  const xToCard = useRef<Function | null>(null);
-  const yToCard = useRef<Function | null>(null);
+  const xToCard = useRef<((value: number) => void) | null>(null);
+  const yToCard = useRef<((value: number) => void) | null>(null);
 
-  const xToText = useRef<Function | null>(null);
-  const yToText = useRef<Function | null>(null);
+  const xToText = useRef<((value: number) => void) | null>(null);
+  const yToText = useRef<((value: number) => void) | null>(null);
 
   useEffect(() => {
     if (!cardRef.current || !textRef.current || !containerRef.current) return;
@@ -52,8 +50,6 @@ export default function HeroParallax() {
   };
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
-
     // Fade in name text to full opacity and scale it to full size
     gsap.to(textRef.current, {
       opacity: 1,
@@ -81,8 +77,6 @@ export default function HeroParallax() {
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
-
     // Reset card tilt and text parallax
     if (xToCard.current) xToCard.current(0);
     if (yToCard.current) yToCard.current(0);

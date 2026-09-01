@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Terminal, X, Play, Code } from "lucide-react";
-import { getProjects } from "@/lib/supabase";
+import { Terminal, X } from "lucide-react";
+import { getProjects, Project } from "@/lib/supabase";
 import gsap from "gsap";
 
 interface LogLine {
@@ -23,7 +23,7 @@ export default function TerminalCLI() {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isMatrix, setIsMatrix] = useState(false);
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
 
   const drawerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,7 +42,7 @@ export default function TerminalCLI() {
   // Web Audio keypress click synthesizer
   const playKeyPressSound = () => {
     try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (!AudioCtx) return;
       const ctx = new AudioCtx();
       const osc = ctx.createOscillator();
@@ -58,7 +58,7 @@ export default function TerminalCLI() {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.04);
-    } catch (e) {
+    } catch {
       // Ignore initial audio block flags
     }
   };
@@ -268,8 +268,18 @@ export default function TerminalCLI() {
         }
         break;
 
-      case "hud":
-        const telemetry = (window as any).__visitorTelemetry;
+      case "hud": {
+        const telemetry = (window as unknown as {
+          __visitorTelemetry?: {
+            activeArchetype: string;
+            probabilities: Record<string, number>;
+            dwellTime: number;
+            idleRatio: number;
+            cursorVelocity: number;
+            scrollDepth: number;
+            hoverCount: { visual: number; tech: number; nav: number };
+          };
+        }).__visitorTelemetry;
         if (telemetry) {
           setHistory((prev) => [
             ...prev,
@@ -289,6 +299,7 @@ export default function TerminalCLI() {
           ]);
         }
         break;
+      }
 
       case "matrix":
         setIsMatrix(true);

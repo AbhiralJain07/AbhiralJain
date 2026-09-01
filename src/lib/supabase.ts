@@ -7,8 +7,28 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 export const supabase =
   supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  long_description: string;
+  technologies: string[];
+  image_url: string;
+  project_url: string;
+  github_url: string;
+  sort_order: number;
+  created_at?: string;
+}
+
+export interface Profile {
+  id?: string;
+  bio_text: string;
+  availability_status: boolean;
+  updated_at?: string;
+}
+
 // Initial project seed data based on Abhiral's resume
-const INITIAL_PROJECTS = [
+const INITIAL_PROJECTS: Project[] = [
   {
     id: "project-1",
     title: "Atithi — Multi-Tenant Visitor Management",
@@ -35,57 +55,63 @@ const INITIAL_PROJECTS = [
   },
 ];
 
-const INITIAL_PROFILE = {
+const INITIAL_PROFILE: Profile = {
   bio_text: "Full-stack developer and ML engineer building production-grade systems — from a DPDP Act compliant, multi-tenant SaaS platform to ML-based predictive models with sub-200ms inference. Founded VIT Bhopal's 100th official club and placed 50+ peers into industry internships through direct startup partnerships.",
   availability_status: true,
 };
 
 // --- API Service Layer with Sandbox Fallback ---
 
-export async function getProjects() {
+export async function getProjects(): Promise<Project[]> {
   if (supabase) {
     const { data, error } = await supabase
       .from("projects")
       .select("*")
       .order("sort_order", { ascending: true });
-    if (!error) return data;
+    if (!error && data) return data as Project[];
     console.error("Supabase error fetching projects:", error);
   }
 
   // Fallback / Demo Mode
   if (typeof window !== "undefined") {
     const cached = localStorage.getItem("portfolio_projects");
-    if (cached) return JSON.parse(cached);
+    if (cached) return JSON.parse(cached) as Project[];
     localStorage.setItem("portfolio_projects", JSON.stringify(INITIAL_PROJECTS));
   }
   return INITIAL_PROJECTS;
 }
 
-export async function saveProject(project: any) {
+export async function saveProject(project: Partial<Project> & { id?: string }): Promise<Project> {
   if (supabase) {
     const { id, ...projectData } = project;
     if (id && !id.startsWith("project-")) {
       const { data, error } = await supabase.from("projects").update(projectData).eq("id", id).select();
-      if (!error) return data[0];
+      if (!error && data?.[0]) return data[0] as Project;
     } else {
       const { data, error } = await supabase.from("projects").insert([projectData]).select();
-      if (!error) return data[0];
+      if (!error && data?.[0]) return data[0] as Project;
     }
   }
 
   // Fallback / Demo Mode
   if (typeof window !== "undefined") {
     const cached = localStorage.getItem("portfolio_projects");
-    const list = cached ? JSON.parse(cached) : INITIAL_PROJECTS;
+    const list: Project[] = cached ? JSON.parse(cached) : INITIAL_PROJECTS;
     
     if (project.id) {
-      const index = list.findIndex((p: any) => p.id === project.id);
+      const index = list.findIndex((p: Project) => p.id === project.id);
       if (index !== -1) {
-        list[index] = { ...list[index], ...project };
+        list[index] = { ...list[index], ...(project as Project) };
       }
     } else {
-      const newProj = {
-        ...project,
+      const newProj: Project = {
+        title: project.title || "",
+        description: project.description || "",
+        long_description: project.long_description || "",
+        technologies: project.technologies || [],
+        image_url: project.image_url || "",
+        project_url: project.project_url || "",
+        github_url: project.github_url || "",
         id: "project-" + Math.random().toString(36).substring(2, 9),
         created_at: new Date().toISOString(),
         sort_order: list.length,
@@ -94,12 +120,12 @@ export async function saveProject(project: any) {
       project = newProj;
     }
     localStorage.setItem("portfolio_projects", JSON.stringify(list));
-    return project;
+    return project as Project;
   }
-  return project;
+  return project as Project;
 }
 
-export async function deleteProject(id: string) {
+export async function deleteProject(id: string): Promise<boolean> {
   if (supabase) {
     const { error } = await supabase.from("projects").delete().eq("id", id);
     if (!error) return true;
@@ -109,7 +135,7 @@ export async function deleteProject(id: string) {
   if (typeof window !== "undefined") {
     const cached = localStorage.getItem("portfolio_projects");
     if (cached) {
-      const list = JSON.parse(cached).filter((p: any) => p.id !== id);
+      const list = (JSON.parse(cached) as Project[]).filter((p: Project) => p.id !== id);
       localStorage.setItem("portfolio_projects", JSON.stringify(list));
       return true;
     }
@@ -117,10 +143,10 @@ export async function deleteProject(id: string) {
   return true;
 }
 
-export async function reorderProjectsInDB(projects: any[]) {
+export async function reorderProjectsInDB(projects: Project[]): Promise<void> {
   if (supabase) {
     const promises = projects.map((p, index) =>
-      supabase.from("projects").update({ sort_order: index }).eq("id", p.id)
+      supabase!.from("projects").update({ sort_order: index }).eq("id", p.id)
     );
     await Promise.all(promises);
     return;
@@ -132,10 +158,10 @@ export async function reorderProjectsInDB(projects: any[]) {
   }
 }
 
-export async function getProfile() {
+export async function getProfile(): Promise<Profile> {
   if (supabase) {
     const { data, error } = await supabase.from("profile").select("*").maybeSingle();
-    if (!error && data) return data;
+    if (!error && data) return data as Profile;
     console.error("Supabase error fetching profile:", error);
   }
 

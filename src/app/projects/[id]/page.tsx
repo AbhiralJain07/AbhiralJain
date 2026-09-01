@@ -3,25 +3,24 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { ArrowLeft, ExternalLink, Code } from "lucide-react";
 import { Github } from "@/components/Icons";
 import gsap from "gsap";
 import Magnetic from "@/components/Magnetic";
-import { getProjects } from "@/lib/supabase";
+import { getProjects, Project } from "@/lib/supabase";
 
 export default function ProjectDetail() {
   const params = useParams();
-  const router = useRouter();
   const id = params.id as string;
 
-  const [project, setProject] = useState<any>(null);
+  const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadProject() {
       const list = await getProjects();
-      const found = list.find((p: any) => p.id === id);
+      const found = list.find((p: Project) => p.id === id);
       setProject(found || null);
       setLoading(false);
     }
