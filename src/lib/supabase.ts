@@ -37,7 +37,7 @@ const INITIAL_PROJECTS: Project[] = [
     technologies: ["Node.js", "Express", "MongoDB", "React", "TypeScript", "Python", "Flask", "InsightFace"],
     image_url: "atithi", // Key for dynamic SVG / CSS illustration
     project_url: "https://visitor-management-system-ochre.vercel.app",
-    github_url: "https://github.com",
+    github_url: "https://github.com/AbhiralJain07/visitor-management-system",
     sort_order: 0,
     created_at: new Date(2026, 5, 1).toISOString(),
   },
@@ -49,7 +49,7 @@ const INITIAL_PROJECTS: Project[] = [
     technologies: ["Python", "Gradient Boosting", "Scikit-Learn", "NumPy", "Pandas", "Flask", "React", "TypeScript"],
     image_url: "crashrisk",
     project_url: "https://crashrisk.onrender.com",
-    github_url: "https://github.com",
+    github_url: "https://github.com/AbhiralJain07/CrashRisk",
     sort_order: 1,
     created_at: new Date(2025, 8, 1).toISOString(),
   },
@@ -75,7 +75,27 @@ export async function getProjects(): Promise<Project[]> {
   // Fallback / Demo Mode
   if (typeof window !== "undefined") {
     const cached = localStorage.getItem("portfolio_projects");
-    if (cached) return JSON.parse(cached) as Project[];
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached) as Project[];
+        let changed = false;
+        parsed.forEach((p) => {
+          if (p.github_url === "https://github.com" || p.github_url === "https://github.com/" || !p.github_url) {
+            const seed = INITIAL_PROJECTS.find((s) => s.id === p.id);
+            if (seed?.github_url) {
+              p.github_url = seed.github_url;
+              changed = true;
+            }
+          }
+        });
+        if (changed) {
+          localStorage.setItem("portfolio_projects", JSON.stringify(parsed));
+        }
+        return parsed;
+      } catch {
+        // Fall back to INITIAL_PROJECTS if cache is corrupt
+      }
+    }
     localStorage.setItem("portfolio_projects", JSON.stringify(INITIAL_PROJECTS));
   }
   return INITIAL_PROJECTS;

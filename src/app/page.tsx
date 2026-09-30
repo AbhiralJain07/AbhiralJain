@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Mail, Menu, X } from "lucide-react";
+import { ArrowUpRight, Mail, Menu, X, Download } from "lucide-react";
 import { Github, Linkedin } from "@/components/Icons";
 import HeroParallax from "@/components/HeroParallax";
 import gsap from "gsap";
@@ -174,7 +174,7 @@ export default function Home() {
       <header
         className={`fixed z-50 transition-all duration-500 ease-out flex items-center justify-between ${
           scrolled
-            ? "top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-[850px] bg-[#0c0c0e]/85 border border-borderDark backdrop-blur-md px-8 py-3.5 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.65)]"
+            ? "top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[900px] bg-[#0c0c0e]/85 border border-borderDark backdrop-blur-md px-7 py-3 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.65)]"
             : "top-0 left-0 w-full px-6 py-6 md:px-12 md:py-8 mix-blend-difference"
         }`}
       >
@@ -186,7 +186,7 @@ export default function Home() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-10 text-xs tracking-widest uppercase font-medium">
+        <nav className="hidden md:flex items-center space-x-7 lg:space-x-8 text-xs tracking-widest uppercase font-medium">
           <Magnetic>
             <button
               onClick={() => handleScrollTo("about")}
@@ -220,6 +220,19 @@ export default function Home() {
             </button>
           </Magnetic>
           <Magnetic>
+            <a
+              href="/Abhiral_Jain_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center space-x-1.5 transition-colors py-2 group ${
+                scrolled ? "text-zinc-300 hover:text-accent" : "text-[#f5f5f7] hover:text-accent"
+              }`}
+            >
+              <span>Resume</span>
+              <ArrowUpRight size={13} className="text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+            </a>
+          </Magnetic>
+          <Magnetic>
             <button
               onClick={() => window.dispatchEvent(new CustomEvent("toggle-terminal"))}
               className={`transition-colors py-2 uppercase font-medium text-xs tracking-widest ${
@@ -232,47 +245,66 @@ export default function Home() {
           <Magnetic>
             <Link
               href="/admin"
-              className={`px-5 py-2 rounded-full border transition-all duration-300 text-xs tracking-widest uppercase font-medium ${
+              className={`px-4 py-1.5 rounded-full border transition-all duration-300 text-[11px] tracking-widest uppercase font-medium ${
                 scrolled
                   ? "border-zinc-700 hover:border-accent hover:text-accent text-zinc-300 bg-[#121214]/50"
                   : "border-[#f5f5f7]/30 hover:border-accent hover:text-accent text-[#f5f5f7]"
               }`}
             >
-              CMS Admin
+              CMS
             </Link>
           </Magnetic>
         </nav>
 
         {/* Mobile Nav Button */}
-        <div className="md:hidden flex items-center space-x-4">
+        <div className="md:hidden flex items-center space-x-2.5">
+          <a
+            href="/Abhiral_Jain_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] px-3 py-1.5 border border-accent/60 rounded-full text-accent flex items-center gap-1 font-semibold uppercase tracking-wider"
+          >
+            <span>CV</span>
+            <ArrowUpRight size={11} />
+          </a>
           <button
             onClick={() => window.dispatchEvent(new CustomEvent("toggle-terminal"))}
-            className="text-xs px-3 py-1.5 border border-[#f5f5f7]/20 rounded-full text-[#f5f5f7]"
+            className="text-[11px] px-2.5 py-1.5 border border-[#f5f5f7]/20 rounded-full text-[#f5f5f7]"
           >
             CLI
           </button>
-          <Link href="/admin" className="text-xs px-3 py-1.5 border border-[#f5f5f7]/20 rounded-full text-[#f5f5f7]">CMS</Link>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#f5f5f7] p-2">
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          <Link href="/admin" className="text-[11px] px-2.5 py-1.5 border border-[#f5f5f7]/20 rounded-full text-[#f5f5f7]">CMS</Link>
+          <button onClick={() => setMenuOpen(!menuOpen)} className="text-[#f5f5f7] p-1.5">
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </header>
 
       {/* Mobile Drawer Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-background flex flex-col justify-center px-12 space-y-8 animate-fade-in md:hidden">
-          <button onClick={() => handleScrollTo("about")} className="text-4xl font-display text-left hover:text-accent">01. About</button>
-          <button onClick={() => handleScrollTo("work")} className="text-4xl font-display text-left hover:text-accent">02. Selected Work</button>
-          <button onClick={() => handleScrollTo("skills")} className="text-4xl font-display text-left hover:text-accent">03. Stack</button>
-          <button onClick={() => handleScrollTo("contact")} className="text-4xl font-display text-left hover:text-accent">04. Get In Touch</button>
+        <div className="fixed inset-0 z-40 bg-background flex flex-col justify-center px-10 space-y-7 animate-fade-in md:hidden">
+          <button onClick={() => handleScrollTo("about")} className="text-3xl sm:text-4xl font-display text-left hover:text-accent">01. About</button>
+          <button onClick={() => handleScrollTo("work")} className="text-3xl sm:text-4xl font-display text-left hover:text-accent">02. Selected Work</button>
+          <button onClick={() => handleScrollTo("skills")} className="text-3xl sm:text-4xl font-display text-left hover:text-accent">03. Stack</button>
+          <button onClick={() => handleScrollTo("contact")} className="text-3xl sm:text-4xl font-display text-left hover:text-accent">04. Get In Touch</button>
+          <a
+            href="/Abhiral_Jain_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMenuOpen(false)}
+            className="text-3xl sm:text-4xl font-display text-left text-accent hover:text-white flex items-center gap-2"
+          >
+            <span>05. Resume (PDF)</span>
+            <ArrowUpRight size={26} />
+          </a>
           <button
             onClick={() => {
               setMenuOpen(false);
               window.dispatchEvent(new CustomEvent("toggle-terminal"));
             }}
-            className="text-4xl font-display text-left hover:text-accent text-accent"
+            className="text-3xl sm:text-4xl font-display text-left text-zinc-400 hover:text-accent"
           >
-            05. CLI Console
+            06. CLI Console
           </button>
         </div>
       )}
@@ -294,11 +326,35 @@ export default function Home() {
             <HeroParallax />
           </div>
 
-          {/* Subtext info */}
-          <div className="reveal-fade grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-[#f5f5f7]/10">
-            <div className="text-zinc-500 text-xs tracking-widest uppercase font-medium">Role</div>
-            <div className="text-[#f5f5f7] text-sm md:col-span-2 font-light max-w-lg leading-relaxed">
+          {/* Subtext info & Hero CTAs */}
+          <div className="reveal-fade grid grid-cols-1 md:grid-cols-12 gap-6 mt-12 pt-8 border-t border-[#f5f5f7]/10 items-center">
+            <div className="md:col-span-2 text-zinc-500 text-xs tracking-widest uppercase font-medium">Role & Focus</div>
+            <div className="md:col-span-5 text-[#f5f5f7] text-sm font-light leading-relaxed">
               Creative Full-Stack Developer & ML Engineer focused on designing production-grade architectures and responsive microservices with sub-200ms inference.
+            </div>
+
+            {/* Dedicated Hero Action Buttons */}
+            <div className="md:col-span-5 flex flex-wrap items-center md:justify-end gap-3.5 pt-2 md:pt-0">
+              <Magnetic strength={0.3} range={70}>
+                <a
+                  href="/Abhiral_Jain_Resume.pdf"
+                  download="Abhiral_Jain_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-full bg-accent text-black font-bold text-xs uppercase tracking-widest hover:bg-[#00c5dd] hover:shadow-[0_0_25px_rgba(0,229,255,0.4)] transition-all duration-300 cursor-none"
+                >
+                  <Download size={14} />
+                  <span>Download CV</span>
+                </a>
+              </Magnetic>
+              <Magnetic strength={0.3} range={70}>
+                <button
+                  onClick={() => handleScrollTo("work")}
+                  className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full border border-borderDark hover:border-accent bg-[#121214]/60 text-zinc-300 hover:text-[#f5f5f7] text-xs font-semibold uppercase tracking-widest transition-all duration-300 cursor-none"
+                >
+                  <span>Explore Work</span>
+                </button>
+              </Magnetic>
             </div>
           </div>
         </div>
@@ -454,21 +510,21 @@ export default function Home() {
           <div className="animate-marquee whitespace-nowrap text-4xl md:text-7xl font-display font-extrabold tracking-tight uppercase flex items-center space-x-12 select-none text-zinc-800">
             {Array.from({ length: 4 }).map((_, i) => (
               <React.Fragment key={i}>
-                <span className="hover:text-accent transition-colors duration-3000">TypeScript</span>
+                <span className="hover:text-accent transition-colors duration-300">TypeScript</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">Next.js</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-300">Next.js</span>
                 <span className="text-[#f5f5f7]/20">•</span>
-                <span className="hover:text-accent transition-colors duration-3000">Python</span>
+                <span className="hover:text-accent transition-colors duration-300">  Python</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">Machine Learning</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-300">Machine Learning</span>
                 <span className="text-[#f5f5f7]/20">•</span>
-                <span className="hover:text-accent transition-colors duration-3000">GSAP</span>
+                <span className="hover:text-accent transition-colors duration-300">GSAP</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">Three.js</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-300">Three.js</span>
                 <span className="text-[#f5f5f7]/20">•</span>
-                <span className="hover:text-accent transition-colors duration-3000">PostgreSQL</span>
+                <span className="hover:text-accent transition-colors duration-300">PostgreSQL</span>
                 <span className="text-accent">•</span>
-                <span className="hover:text-[#f5f5f7] transition-colors duration-3000">n8n Automation</span>
+                <span className="hover:text-[#f5f5f7] transition-colors duration-300">n8n Automation</span>
                 <span className="text-[#f5f5f7]/20">•</span>
               </React.Fragment>
             ))}

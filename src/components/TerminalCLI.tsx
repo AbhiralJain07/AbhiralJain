@@ -199,6 +199,7 @@ export default function TerminalCLI() {
           { text: "AJ_OS SHELL UTILITIES V1.04 COMMAND DIRECTORY:", type: "system" },
           { text: "  help       - List terminal utilities.", type: "system" },
           { text: "  about      - Read developer biography description.", type: "system" },
+          { text: "  resume     - Download or open Abhiral's verified PDF resume.", type: "system" },
           { text: "  skills     - Query full stack & ML technical stack.", type: "system" },
           { text: "  projects   - Query developer database projects.", type: "system" },
           { text: "  project    - Inspect project details. Usage: project <num>", type: "system" },
@@ -207,6 +208,21 @@ export default function TerminalCLI() {
           { text: "  clear      - Flush terminal logs buffer.", type: "system" },
           { text: "  exit       - Terminate terminal session.", type: "system" },
           { text: "--------------------------------------------------------", type: "system" },
+        ]);
+        break;
+
+      case "resume":
+      case "cv":
+        if (typeof window !== "undefined") {
+          window.open("/Abhiral_Jain_Resume.pdf", "_blank");
+        }
+        setHistory((prev) => [
+          ...prev,
+          { text: "FETCHING RESUME: Opening /Abhiral_Jain_Resume.pdf...", type: "system" },
+          { text: "  CANDIDATE  : Abhiral Jain", type: "system" },
+          { text: "  EDUCATION  : B.Tech CSE (AI & ML), VIT Bhopal University (2024-2028)", type: "system" },
+          { text: "  ROLES      : Software Dev Intern (WEWIN), Full Stack Intern (Datatrack), Lead (EvolVIT)", type: "system" },
+          { text: "  PDF STATUS : Download triggered / Opened in new browser tab.", type: "system" },
         ]);
         break;
 
