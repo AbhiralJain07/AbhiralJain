@@ -199,6 +199,7 @@ export default function TerminalCLI() {
           { text: "AJ_OS SHELL UTILITIES V1.04 COMMAND DIRECTORY:", type: "system" },
           { text: "  help       - List terminal utilities.", type: "system" },
           { text: "  about      - Read developer biography description.", type: "system" },
+          { text: "  experience - Query career roles, impact metrics, and leadership.", type: "system" },
           { text: "  resume     - Download or open Abhiral's verified PDF resume.", type: "system" },
           { text: "  skills     - Query full stack & ML technical stack.", type: "system" },
           { text: "  projects   - Query developer database projects.", type: "system" },
@@ -234,6 +235,22 @@ export default function TerminalCLI() {
           { text: "  TEAMS  : Researcher and development team lead at EvolVIT", type: "system" },
           { text: "  SPECIAL: DPDP Act SaaS architectures, sub-200ms ML model inference", type: "system" },
           { text: "  MISSION: Bridging low-level data engineering with visually premium layouts.", type: "system" },
+        ]);
+      case "experience":
+      case "roles":
+      case "career":
+        setHistory((prev) => [
+          ...prev,
+          { text: "=================== CAREER & LEADERSHIP ===================", type: "system" },
+          { text: "  [1] EvolVIT — Lead Researcher & Development Team Lead (Aug 2024 — Present)", type: "system" },
+          { text: "      • Microservices architecture, n8n event pipelines, sub-200ms ML inference", type: "system" },
+          { text: "  [2] VIT Bhopal University — Founder & President (100th Official Club) (2024 — Present)", type: "system" },
+          { text: "      • Placed 50+ peers into verified industry & startup internships", type: "system" },
+          { text: "  [3] WEWIN — Software Development Intern (2024)", type: "system" },
+          { text: "      • Built modular Express/Node.js REST APIs and reduced latency bottlenecks", type: "system" },
+          { text: "  [4] Datatrack — Full Stack Web Intern (2024)", type: "system" },
+          { text: "      • Real-time data telemetry dashboards, PostgreSQL indexing optimization", type: "system" },
+          { text: "===========================================================", type: "system" },
         ]);
         break;
 

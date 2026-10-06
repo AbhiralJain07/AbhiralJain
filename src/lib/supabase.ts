@@ -10,6 +10,7 @@ export const supabase =
 export interface Project {
   id: string;
   title: string;
+  category?: string;
   description: string;
   long_description: string;
   technologies: string[];
@@ -18,6 +19,19 @@ export interface Project {
   github_url: string;
   sort_order: number;
   created_at?: string;
+  metrics?: string;
+}
+
+export interface Experience {
+  id: string;
+  role: string;
+  organization: string;
+  period: string;
+  location?: string;
+  type: "Research & Lead" | "Internship" | "Leadership & Community";
+  description: string;
+  highlights: string[];
+  technologies: string[];
 }
 
 export interface Profile {
@@ -27,31 +41,112 @@ export interface Profile {
   updated_at?: string;
 }
 
-// Initial project seed data based on Abhiral's resume
+// Initial project seed data based on Abhiral's verified portfolio & resume
 const INITIAL_PROJECTS: Project[] = [
   {
     id: "project-1",
     title: "Atithi — Multi-Tenant Visitor Management",
+    category: "Full-Stack & Security",
     description: "DPDP Act 2023 compliant multi-tenant VMS featuring JWT authentication and self-hosted facial recognition.",
     long_description: "Architected a multi-tenant Visitor Management System (VMS) with JWT authentication and a 6-tier Role-Based Access Control (RBAC) hierarchy ranging from Super Admin to Security, meeting DPDP Act 2023 compliance. Built a self-hosted facial recognition microservice (Python/Flask/InsightFace) for biometric check-in and blacklist detection, integrated with a Telegram Bot for host approvals to eliminate external API costs. Serves with rate limiting, audit logging, and dynamic 5-language localization.",
     technologies: ["Node.js", "Express", "MongoDB", "React", "TypeScript", "Python", "Flask", "InsightFace"],
     image_url: "atithi", // Key for dynamic SVG / CSS illustration
     project_url: "https://visitor-management-system-ochre.vercel.app",
     github_url: "https://github.com/AbhiralJain07/visitor-management-system",
+    metrics: "DPDP 2023 Compliant • 6-Tier RBAC • 0 External API Costs",
     sort_order: 0,
     created_at: new Date(2026, 5, 1).toISOString(),
   },
   {
     id: "project-2",
     title: "CrashRisk — Aviation Safety Intelligence",
+    category: "Machine Learning & AI",
     description: "Predictive flight safety platform using Gradient Boosting Classifier with sub-200ms inference.",
     long_description: "Built a full-stack Machine Learning application classifying flight scenarios into 4 distinct risk tiers. Deployed on Render with sub-200ms inference times using a Gradient Boosting Classifier. Engineered an interactive live Risk Simulator with 11 parameters that maps non-obvious factor interactions (e.g., how pilot experience can outweigh severe weather conditions).",
     technologies: ["Python", "Gradient Boosting", "Scikit-Learn", "NumPy", "Pandas", "Flask", "React", "TypeScript"],
     image_url: "crashrisk",
     project_url: "https://crashrisk.onrender.com",
     github_url: "https://github.com/AbhiralJain07/CrashRisk",
+    metrics: "< 200ms Inference • 11 Risk Parameters • 4 Tiers",
     sort_order: 1,
     created_at: new Date(2025, 8, 1).toISOString(),
+  },
+  {
+    id: "project-3",
+    title: "FlowSync — Event-Driven n8n Automation Engine",
+    category: "Cloud & Automation",
+    description: "High-throughput webhook orchestration pipeline with distributed event retry queues and monitoring.",
+    long_description: "Engineered an enterprise-grade automation pipeline using n8n and Node.js microservices. Integrated asynchronous webhook listeners, automated data transformation, and reliable dead-letter queue retries with Telegram & email alerts for mission-critical operations.",
+    technologies: ["n8n.io", "Node.js", "Redis", "Webhooks", "PostgreSQL", "Docker"],
+    image_url: "flowsync",
+    project_url: "https://github.com/AbhiralJain07",
+    github_url: "https://github.com/AbhiralJain07",
+    metrics: "99.9% Pipeline Reliability • Zero Message Loss • Real-Time Alerts",
+    sort_order: 2,
+    created_at: new Date(2025, 10, 1).toISOString(),
+  },
+  {
+    id: "project-4",
+    title: "AgentNexus — Multi-Agent Autonomous Network",
+    category: "Machine Learning & AI",
+    description: "Collaborative multi-agent reasoning framework with vector memory retrieval and structured tool execution.",
+    long_description: "Architected a multi-agent orchestration architecture where specialized agents autonomously coordinate complex software workflows. Features local vector indexing for contextual memory, recursive task decomposition, and schema-validated tool calling.",
+    technologies: ["Python", "LangChain", "Vector Embeddings", "FastAPI", "Next.js", "Tailwind CSS"],
+    image_url: "agentnexus",
+    project_url: "https://github.com/AbhiralJain07",
+    github_url: "https://github.com/AbhiralJain07",
+    metrics: "Autonomous Multi-Agent • Sub-second Context Retrieval",
+    sort_order: 3,
+    created_at: new Date(2026, 1, 1).toISOString(),
+  },
+];
+
+export const INITIAL_EXPERIENCES: Experience[] = [
+  {
+    id: "exp-1",
+    role: "President & Research/Development Lead",
+    organization: "EvolVIT",
+    period: "Aug 2024 — Present",
+    location: "VIT Bhopal University",
+    type: "Research & Lead",
+    description: "Spearheading engineering research, leading developer teams in building scalable microservices, and automating backend pipelines while fostering student technical development.",
+    highlights: [
+      "Architected high-concurrency microservices and automated n8n workflows eliminating operational bottlenecks.",
+      "Spearheaded university-to-industry partnerships and placed 50+ peers into verified tech internships.",
+      "Led ML optimization research achieving sub-200ms inference on production models.",
+      "Mentored student developers on clean code architecture, full-stack pipelines, and security best practices."
+    ],
+    technologies: ["Next.js", "Microservices", "n8n.io", "Python", "Flask", "Node.js", "Redis", "Leadership"],
+  },
+  {
+    id: "exp-2",
+    role: "Software Development Intern",
+    organization: "WeWin Engineering Services & Suppliers Pvt. Ltd.",
+    period: "2024",
+    location: "Bhopal, India",
+    type: "Internship",
+    description: "Engineered scalable backend REST APIs, implemented responsive frontend interfaces, and optimized data transactions for client enterprise services.",
+    highlights: [
+      "Built modular REST API endpoints in Express/Node.js with rigorous validation and role-based security.",
+      "Streamlined state management and frontend UI components in React, reducing page render bottlenecks.",
+      "Collaborated in agile team sprints, code reviews, and production deployment cycles."
+    ],
+    technologies: ["React", "Node.js", "Express.js", "MongoDB", "REST APIs", "Git", "JavaScript"],
+  },
+  {
+    id: "exp-3",
+    role: "Full Stack Web Intern",
+    organization: "DataTrack",
+    period: "2024",
+    location: "Remote",
+    type: "Internship",
+    description: "Developed real-time telemetry dashboards, optimized database indexing, and built responsive customer portals with secure authentication flows.",
+    highlights: [
+      "Engineered dynamic analytics interfaces consuming live telemetry and customer transaction streams.",
+      "Optimized PostgreSQL schema queries and indexing to significantly enhance report rendering speed.",
+      "Integrated secure authentication protocols and granular user permission roles."
+    ],
+    technologies: ["TypeScript", "React", "PostgreSQL", "Tailwind CSS", "Data Telemetry", "REST APIs"],
   },
 ];
 
@@ -59,6 +154,30 @@ const INITIAL_PROFILE: Profile = {
   bio_text: "Full-stack developer and ML engineer building production-grade systems — from a DPDP Act compliant, multi-tenant SaaS platform to ML-based predictive models with sub-200ms inference. Founded VIT Bhopal's 100th official club and placed 50+ peers into industry internships through direct startup partnerships.",
   availability_status: true,
 };
+
+export async function getExperiences(): Promise<Experience[]> {
+  if (supabase) {
+    const { data, error } = await supabase
+      .from("experiences")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (!error && data && data.length > 0) return data as Experience[];
+  }
+
+  // Fallback / Demo Mode
+  if (typeof window !== "undefined") {
+    const cached = localStorage.getItem("portfolio_experiences_v2");
+    if (cached) {
+      try {
+        return JSON.parse(cached) as Experience[];
+      } catch {
+        // Fall back to initial if corrupt
+      }
+    }
+    localStorage.setItem("portfolio_experiences_v2", JSON.stringify(INITIAL_EXPERIENCES));
+  }
+  return INITIAL_EXPERIENCES;
+}
 
 // --- API Service Layer with Sandbox Fallback ---
 

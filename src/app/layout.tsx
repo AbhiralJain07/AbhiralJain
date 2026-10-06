@@ -29,6 +29,9 @@ export const metadata: Metadata = {
   },
 };
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,13 +40,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${syne.variable} font-sans bg-[#0b0b0c] text-[#f5f5f7] antialiased selection:bg-accent selection:text-black`}
+        className={`${inter.variable} ${syne.variable} font-sans bg-[#0b0b0c] text-[#f5f5f7] antialiased selection:bg-accent selection:text-black flex flex-col min-h-screen`}
       >
         <SmoothScroll>
           <CustomCursor />
           <AnalyticsHUD />
           <TerminalCLI />
-          {children}
+          <Navbar />
+          <div className="flex-grow">{children}</div>
+          <Footer />
         </SmoothScroll>
       </body>
     </html>
