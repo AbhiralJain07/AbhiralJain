@@ -1,16 +1,13 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   ArrowUpRight,
-  Download,
   Briefcase,
   Layers,
   Send,
   Sparkles,
-  ChevronRight,
   ShieldCheck,
   Cpu,
   Users,
