@@ -17,6 +17,7 @@ import {
   Award,
 } from "lucide-react";
 import HeroParallax from "@/components/HeroParallax";
+import InteractivePhotoCard from "@/components/InteractivePhotoCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Magnetic from "@/components/Magnetic";
@@ -25,16 +26,6 @@ import { getProfile, Profile } from "@/lib/supabase";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
-
-// Lazy-load the interactive 3D Spline Scene
-const SplineScene = dynamic(() => import("@/components/ui/splite").then((mod) => mod.SplineScene), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full min-h-[350px] flex items-center justify-center text-xs text-zinc-500 font-mono tracking-widest uppercase">
-      [ Initializing 3D Canvas ]
-    </div>
-  ),
-});
 
 export default function Home() {
   const [profile, setProfile] = useState<Profile>({
@@ -112,10 +103,10 @@ export default function Home() {
       {/* --- SECTION 1: HERO / INTRO CONTENT --- */}
       <section
         ref={heroRef}
-        className="min-h-[92vh] w-full flex flex-col justify-between pt-28 sm:pt-32 pb-12 px-6 md:px-12 max-w-7xl mx-auto relative overflow-hidden"
+        className="min-h-[92vh] w-full flex flex-col justify-between pt-28 sm:pt-32 pb-10 px-6 md:px-12 max-w-7xl mx-auto relative"
       >
-        {/* Availability Badge & System Status Bar */}
-        <div className="reveal-fade flex flex-wrap items-center justify-between gap-4 mb-2">
+        {/* Top Status Bar: Availability Badge + Edition Tag */}
+        <div className="reveal-fade flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex items-center space-x-3">
             <span
               className={`w-2.5 h-2.5 rounded-full ${
@@ -137,55 +128,93 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 3D Parallax Photo & Name Reveal */}
-        <div className="reveal-fade my-4">
-          <HeroParallax />
-        </div>
+        {/* Hero 2-Column Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center my-auto py-4">
+          
+          {/* Left Column: Identity, Role, Value Prop, CTAs & Specs */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
+            
+            {/* Professional Identity Badge */}
+            <div className="reveal-fade inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-[0_0_15px_rgba(0,229,255,0.08)]">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-accent font-mono text-xs font-semibold uppercase tracking-wider">
+                AI/ML Engineer & Full-Stack Developer
+              </span>
+            </div>
 
-        {/* Professional Identity, Value Proposition & Action CTAs */}
-        <div className="reveal-fade flex flex-col items-center text-center max-w-3xl mx-auto space-y-4 pt-2">
-          {/* Professional Identity */}
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-[0_0_15px_rgba(0,229,255,0.08)]">
-            <span className="text-accent font-mono text-xs font-semibold uppercase tracking-[0.2em]">
-              AI/ML Engineer & Full-Stack Developer
-            </span>
+            {/* Main Name Heading */}
+            <div className="reveal-fade space-y-1">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl xl:text-[5.25rem] font-display font-extrabold uppercase tracking-tight leading-[0.92]">
+                <span className="text-[#f5f5f7]">ABHIRAL</span>{" "}
+                <span className="text-accent drop-shadow-[0_0_30px_rgba(0,229,255,0.45)]">JAIN</span>
+              </h1>
+            </div>
+
+            {/* Value Proposition */}
+            <p className="reveal-fade text-base sm:text-lg md:text-xl text-zinc-300 font-light leading-relaxed max-w-xl">
+              I build intelligent products at the intersection of AI, software engineering, and real-world systems.
+            </p>
+
+            {/* Hero CTAs */}
+            <div className="reveal-fade flex flex-wrap items-center gap-4 pt-1">
+              <Magnetic strength={0.3} range={70}>
+                <Link
+                  href="/experience-projects"
+                  className="group inline-flex items-center space-x-2.5 px-7 py-4 rounded-full bg-accent text-black font-bold text-xs uppercase tracking-widest hover:bg-[#00c5dd] hover:shadow-[0_0_25px_rgba(0,229,255,0.45)] transition-all duration-300 transform hover:-translate-y-0.5"
+                >
+                  <span>VIEW MY WORK</span>
+                  <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </Link>
+              </Magnetic>
+
+              <Magnetic strength={0.3} range={70}>
+                <a
+                  href="/Abhiral_Jain_Resume.pdf"
+                  download="Abhiral_Jain_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center space-x-2.5 px-7 py-4 rounded-full border border-borderDark hover:border-accent bg-[#121214]/80 hover:bg-[#151518] text-zinc-200 hover:text-white font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_20px_rgba(0,229,255,0.15)] transition-all duration-300 transform hover:-translate-y-0.5"
+                >
+                  <span>DOWNLOAD RESUME</span>
+                  <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+                </a>
+              </Magnetic>
+            </div>
+
+            {/* Quick Tech Spec Telemetry Bar */}
+            <div className="reveal-fade pt-4 border-t border-borderDark/60 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-zinc-400">
+              <div className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                <span className="text-[#f5f5f7] font-semibold">&lt;200ms</span>
+                <span>ML Inference</span>
+              </div>
+              <div className="hidden sm:block text-zinc-600">•</div>
+              <div className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                <span className="text-[#f5f5f7] font-semibold">DPDP Compliant</span>
+                <span>Microservices</span>
+              </div>
+              <div className="hidden sm:block text-zinc-600">•</div>
+              <div className="flex items-center space-x-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                <span className="text-[#f5f5f7] font-semibold">EvolVIT</span>
+                <span>Dev Lead</span>
+              </div>
+            </div>
+
           </div>
 
-          {/* Professional Value Proposition */}
-          <p className="text-sm sm:text-base md:text-lg text-zinc-300 font-light leading-relaxed max-w-2xl text-balance">
-            I build intelligent products at the intersection of AI, software engineering, and real-world systems.
-          </p>
-
-          {/* Hero CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2">
-            <Magnetic strength={0.3} range={70}>
-              <Link
-                href="/experience-projects"
-                className="group inline-flex items-center space-x-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-accent text-black font-bold text-xs uppercase tracking-widest hover:bg-[#00c5dd] hover:shadow-[0_0_25px_rgba(0,229,255,0.45)] transition-all duration-300 transform hover:-translate-y-0.5"
-              >
-                <span>VIEW MY WORK</span>
-                <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-x-1">→</span>
-              </Link>
-            </Magnetic>
-            <Magnetic strength={0.3} range={70}>
-              <a
-                href="/Abhiral_Jain_Resume.pdf"
-                download="Abhiral_Jain_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center space-x-2.5 px-6 sm:px-7 py-3.5 rounded-full border border-borderDark hover:border-accent bg-[#121214]/80 hover:bg-[#151518] text-zinc-200 hover:text-white font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_20px_rgba(0,229,255,0.15)] transition-all duration-300 transform hover:-translate-y-0.5"
-              >
-                <span>DOWNLOAD RESUME</span>
-                <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
-              </a>
-            </Magnetic>
+          {/* Right Column: 3D Interactive HUD Portrait Card */}
+          <div className="lg:col-span-5 reveal-fade flex items-center justify-center">
+            <HeroParallax />
           </div>
+
         </div>
 
         {/* Scroll cue indicator */}
         <div
           ref={scrollCueRef}
-          className="flex flex-col items-center space-y-2 pointer-events-none opacity-80 pt-6"
+          className="flex flex-col items-center space-y-2 pointer-events-none opacity-80 pt-4"
         >
           <span className="text-[9px] tracking-widest uppercase text-zinc-500 font-mono">
             Scroll to explore
@@ -213,18 +242,16 @@ export default function Home() {
             </div>
 
             <h2 className="text-3xl md:text-5xl font-display font-bold leading-tight uppercase">
-              Engineering systems with micro-level precision.
+              Building software that actually solves real problems.
             </h2>
 
             <div className="text-zinc-400 font-light text-base md:text-lg leading-relaxed space-y-6">
               <p>
                 {profile.bio_text ||
-                  "Full-stack developer and ML engineer building production-grade systems — from a DPDP Act compliant, multi-tenant SaaS platform to ML-based predictive models with sub-200ms inference."}
+                  "I'm a developer who loves turning real-world problems into clean, fast, and reliable software. Whether I'm training ML models to predict risk or building full-stack platforms from scratch, I focus on practical tools that genuinely help people."}
               </p>
               <p>
-                As President and development lead at{" "}
-                <span className="text-[#f5f5f7] font-semibold">EvolVIT</span>, I
-                specialize in architecting modern microservices and automating n8n backend pipelines. I enjoy turning complex data pipelines and server designs into highly responsive, visually rich user interfaces.
+                As President of <span className="text-[#f5f5f7] font-semibold">EvolVIT</span> at VIT Bhopal, I spend a lot of my time mentoring fellow students, organizing hands-on hack nights, and helping peers land engineering internships. Outside of shipping code, I enjoy experimenting with open-source tools, tinkering with automation workflows, and brainstorming new project ideas.
               </p>
             </div>
 
@@ -233,12 +260,12 @@ export default function Home() {
               <div className="p-3.5 rounded-xl border border-borderDark bg-[#121214]/60">
                 <Users className="text-accent mb-1" size={16} />
                 <div className="text-xl font-display font-bold text-[#f5f5f7]">50+</div>
-                <div className="text-[10px] font-mono text-zinc-500 uppercase">Peers Placed</div>
+                <div className="text-[10px] font-mono text-zinc-500 uppercase">Peers Mentored</div>
               </div>
               <div className="p-3.5 rounded-xl border border-borderDark bg-[#121214]/60">
                 <Award className="text-accent mb-1" size={16} />
                 <div className="text-xl font-display font-bold text-[#f5f5f7]">100th</div>
-                <div className="text-[10px] font-mono text-zinc-500 uppercase">Official Club</div>
+                <div className="text-[10px] font-mono text-zinc-500 uppercase">Club Founded</div>
               </div>
               <div className="p-3.5 rounded-xl border border-borderDark bg-[#121214]/60">
                 <Cpu className="text-accent mb-1" size={16} />
@@ -253,12 +280,9 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 3D Spline Scene canvas */}
-          <div className="w-full h-[350px] sm:h-[450px] lg:h-[550px] order-1 lg:order-2 rounded-2xl border border-borderDark bg-[#121214]/60 overflow-hidden relative flex items-center justify-center shadow-2xl">
-            <SplineScene
-              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              className="w-full h-full"
-            />
+          {/* Interactive Screen-Tracking 3D Photo Component */}
+          <div className="w-full order-1 lg:order-2 flex items-center justify-center">
+            <InteractivePhotoCard />
           </div>
         </div>
       </section>

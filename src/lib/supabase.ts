@@ -151,7 +151,7 @@ export const INITIAL_EXPERIENCES: Experience[] = [
 ];
 
 const INITIAL_PROFILE: Profile = {
-  bio_text: "Full-stack developer and ML engineer building production-grade systems — from a DPDP Act compliant, multi-tenant SaaS platform to ML-based predictive models with sub-200ms inference. Founded VIT Bhopal's 100th official club and placed 50+ peers into industry internships through direct startup partnerships.",
+  bio_text: "I'm a developer who loves turning real-world problems into clean, fast, and reliable software. Whether I'm training ML models to predict risk or building full-stack platforms from scratch, I focus on practical tools that genuinely help people.",
   availability_status: true,
 };
 
