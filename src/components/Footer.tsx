@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { Github, Linkedin } from "@/components/Icons";
 import Magnetic from "@/components/Magnetic";
@@ -12,14 +13,23 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         
         {/* Brand & info */}
-        <div className="flex flex-col items-center md:items-start space-y-2">
+        <div className="flex flex-col items-center md:items-start space-y-3">
           <Link
             href="/"
-            className="text-lg font-display font-bold tracking-widest text-[#f5f5f7] hover:text-accent transition-colors"
+            className="flex items-center space-x-3 group"
+            aria-label="Abhiral Jain Home"
           >
-            ABHIRAL JAIN
+            <div className="relative h-9 w-auto aspect-[539/333] transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/logo-white.png"
+                alt="Abhiral Jain Logo"
+                width={140}
+                height={86}
+                className="h-full w-auto object-contain brightness-95 group-hover:brightness-110 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(0,229,255,0.3)] transition-all duration-300"
+              />
+            </div>
           </Link>
-          <p className="font-mono text-zinc-500 text-[11px]">
+          <p className="font-mono text-zinc-500 text-[11px] text-center md:text-left">
             Creative Full-Stack Developer & ML Engineer • VIT Bhopal
           </p>
         </div>

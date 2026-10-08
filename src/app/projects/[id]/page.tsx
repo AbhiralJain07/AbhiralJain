@@ -62,6 +62,7 @@ export default function ProjectDetail() {
   const getProjectImage = (imgKey: string) => {
     if (imgKey === "atithi") return "/projects/atithi.jpg";
     if (imgKey === "crashrisk") return "/projects/crashrisk.jpg";
+    if (imgKey === "itsm" || imgKey === "flowsync") return "/projects/itsm.jpg";
     if (imgKey?.startsWith("http") || imgKey?.startsWith("/")) return imgKey;
     return null;
   };

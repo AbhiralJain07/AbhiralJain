@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight, Terminal as TerminalIcon } from "lucide-react";
 import Magnetic from "@/components/Magnetic";
@@ -53,12 +54,19 @@ export default function Navbar() {
         {/* Brand Logo */}
         <Link
           href="/"
-          className="group flex items-center space-x-2 text-xl font-display font-bold tracking-widest text-[#f5f5f7] hover:text-accent transition-colors duration-300"
+          className="group flex items-center space-x-2.5 transition-all duration-300"
+          aria-label="Abhiral Jain - Home"
         >
-          <span className="relative">
-            AJ.
-            <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent group-hover:w-full transition-all duration-300" />
-          </span>
+          <div className="relative h-8 sm:h-9 md:h-10 w-auto aspect-[539/333] transition-transform duration-300 group-hover:scale-105">
+            <Image
+              src="/logo-white.png"
+              alt="Abhiral Jain Logo"
+              width={140}
+              height={86}
+              priority
+              className="h-full w-auto object-contain brightness-100 group-hover:brightness-110 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] group-hover:drop-shadow-[0_0_12px_rgba(0,229,255,0.35)] transition-all duration-300"
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation - 3 Main Sections */}

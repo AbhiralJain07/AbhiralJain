@@ -73,32 +73,32 @@ const INITIAL_PROJECTS: Project[] = [
   },
   {
     id: "project-3",
-    title: "FlowSync — Event-Driven n8n Automation Engine",
-    category: "Cloud & Automation",
-    description: "High-throughput webhook orchestration pipeline with distributed event retry queues and monitoring.",
-    long_description: "Engineered an enterprise-grade automation pipeline using n8n and Node.js microservices. Integrated asynchronous webhook listeners, automated data transformation, and reliable dead-letter queue retries with Telegram & email alerts for mission-critical operations.",
-    technologies: ["n8n.io", "Node.js", "Redis", "Webhooks", "PostgreSQL", "Docker"],
-    image_url: "flowsync",
-    project_url: "https://github.com/AbhiralJain07",
-    github_url: "https://github.com/AbhiralJain07",
-    metrics: "99.9% Pipeline Reliability • Zero Message Loss • Real-Time Alerts",
+    title: "ITSM — Enterprise IT Service Management Platform",
+    category: "Full-Stack & Security",
+    description: "Enterprise IT service management system with realm-based multi-tenancy, RBAC, automated SLA tracking, and real-time incident analytics.",
+    long_description: "Architected a scalable, production-grade IT Service Management (ITSM) system built with ASP.NET Core Web API and Next.js App Router. Features realm-based tenant isolation, secure JWT authentication with HttpOnly cookies, 3-tier Role-Based Access Control (Admin, Agent, User), and an automated C# Background Automation Worker for real-time SLA target monitoring and breach tracking. Includes Recharts analytics dashboards for incident volume statistics, daily closure rates, and live system latency telemetry.",
+    technologies: ["Next.js", "ASP.NET Core", "TypeScript", "C#", "Entity Framework Core", "PostgreSQL", "JWT Auth", "Tailwind CSS", "Recharts"],
+    image_url: "itsm",
+    project_url: "https://github.com/AbhiralJain07/ITSM",
+    github_url: "https://github.com/AbhiralJain07/ITSM",
+    metrics: "Realm-Based Multi-Tenancy • 3-Tier RBAC • C# SLA Worker",
     sort_order: 2,
-    created_at: new Date(2025, 10, 1).toISOString(),
+    created_at: new Date(2025, 11, 1).toISOString(),
   },
-  {
-    id: "project-4",
-    title: "AgentNexus — Multi-Agent Autonomous Network",
-    category: "Machine Learning & AI",
-    description: "Collaborative multi-agent reasoning framework with vector memory retrieval and structured tool execution.",
-    long_description: "Architected a multi-agent orchestration architecture where specialized agents autonomously coordinate complex software workflows. Features local vector indexing for contextual memory, recursive task decomposition, and schema-validated tool calling.",
-    technologies: ["Python", "LangChain", "Vector Embeddings", "FastAPI", "Next.js", "Tailwind CSS"],
-    image_url: "agentnexus",
-    project_url: "https://github.com/AbhiralJain07",
-    github_url: "https://github.com/AbhiralJain07",
-    metrics: "Autonomous Multi-Agent • Sub-second Context Retrieval",
-    sort_order: 3,
-    created_at: new Date(2026, 1, 1).toISOString(),
-  },
+  // {
+  //   id: "project-4",
+  //   title: "AgentNexus — Multi-Agent Autonomous Network",
+  //   category: "Machine Learning & AI",
+  //   description: "Collaborative multi-agent reasoning framework with vector memory retrieval and structured tool execution.",
+  //   long_description: "Architected a multi-agent orchestration architecture where specialized agents autonomously coordinate complex software workflows. Features local vector indexing for contextual memory, recursive task decomposition, and schema-validated tool calling.",
+  //   technologies: ["Python", "LangChain", "Vector Embeddings", "FastAPI", "Next.js", "Tailwind CSS"],
+  //   image_url: "agentnexus",
+  //   project_url: "https://github.com/AbhiralJain07",
+  //   github_url: "https://github.com/AbhiralJain07",
+  //   metrics: "Autonomous Multi-Agent • Sub-second Context Retrieval",
+  //   sort_order: 3,
+  //   created_at: new Date(2026, 1, 1).toISOString(),
+  // },
 ];
 
 export const INITIAL_EXPERIENCES: Experience[] = [
@@ -116,13 +116,13 @@ export const INITIAL_EXPERIENCES: Experience[] = [
       "Led ML optimization research achieving sub-200ms inference on production models.",
       "Mentored student developers on clean code architecture, full-stack pipelines, and security best practices."
     ],
-    technologies: ["Next.js", "Microservices", "n8n.io", "Python", "Flask", "Node.js", "Redis", "Leadership"],
+    technologies: ["Next.js", "Microservices", "n8n.io", "Python", "Flask", "Node.js", "Redis", "Leadership", "Communication Skill"],
   },
   {
     id: "exp-2",
     role: "Software Development Intern",
     organization: "WeWin Engineering Services & Suppliers Pvt. Ltd.",
-    period: "2024",
+    period: "May 2025 - June 2025",
     location: "Bhopal, India",
     type: "Internship",
     description: "Engineered scalable backend REST APIs, implemented responsive frontend interfaces, and optimized data transactions for client enterprise services.",
@@ -137,7 +137,7 @@ export const INITIAL_EXPERIENCES: Experience[] = [
     id: "exp-3",
     role: "Full Stack Web Intern",
     organization: "DataTrack",
-    period: "2024",
+    period: "April 2026 — June 2026",
     location: "Remote",
     type: "Internship",
     description: "Developed real-time telemetry dashboards, optimized database indexing, and built responsive customer portals with secure authentication flows.",
@@ -146,7 +146,7 @@ export const INITIAL_EXPERIENCES: Experience[] = [
       "Optimized PostgreSQL schema queries and indexing to significantly enhance report rendering speed.",
       "Integrated secure authentication protocols and granular user permission roles."
     ],
-    technologies: ["TypeScript", "React", "PostgreSQL", "Tailwind CSS", "Data Telemetry", "REST APIs"],
+    technologies: ["TypeScript", "React", "PostgreSQL", "Tailwind CSS", "Data Telemetry", "REST APIs", "N8n.io", "Automation"],
   },
 ];
 
@@ -181,41 +181,45 @@ export async function getExperiences(): Promise<Experience[]> {
 
 // --- API Service Layer with Sandbox Fallback ---
 
+const STORAGE_PROJECTS_KEY = "portfolio_projects_v5";
+
 export async function getProjects(): Promise<Project[]> {
   if (supabase) {
     const { data, error } = await supabase
       .from("projects")
       .select("*")
       .order("sort_order", { ascending: true });
-    if (!error && data) return data as Project[];
+    if (!error && data && data.length > 0) return data as Project[];
     console.error("Supabase error fetching projects:", error);
   }
 
-  // Fallback / Demo Mode
+  // Fallback / Demo Mode (LocalStorage Sandbox)
   if (typeof window !== "undefined") {
-    const cached = localStorage.getItem("portfolio_projects");
+    // Clear outdated legacy keys
+    localStorage.removeItem("portfolio_projects");
+    localStorage.removeItem("portfolio_projects_v2");
+    localStorage.removeItem("portfolio_projects_v3");
+    localStorage.removeItem("portfolio_projects_v4");
+
+    const cached = localStorage.getItem(STORAGE_PROJECTS_KEY);
     if (cached) {
       try {
         const parsed = JSON.parse(cached) as Project[];
-        let changed = false;
-        parsed.forEach((p) => {
-          if (p.github_url === "https://github.com" || p.github_url === "https://github.com/" || !p.github_url) {
-            const seed = INITIAL_PROJECTS.find((s) => s.id === p.id);
-            if (seed?.github_url) {
-              p.github_url = seed.github_url;
-              changed = true;
-            }
-          }
-        });
-        if (changed) {
-          localStorage.setItem("portfolio_projects", JSON.stringify(parsed));
-        }
-        return parsed;
+        // Always ensure seed projects in code take precedence, keeping any custom user-added projects
+        const userCreated = parsed.filter(
+          (p) => !INITIAL_PROJECTS.some((seed) => seed.id === p.id)
+        );
+        const combined = [...INITIAL_PROJECTS, ...userCreated].map((p, idx) => ({
+          ...p,
+          sort_order: p.sort_order ?? idx,
+        }));
+        localStorage.setItem(STORAGE_PROJECTS_KEY, JSON.stringify(combined));
+        return combined;
       } catch {
         // Fall back to INITIAL_PROJECTS if cache is corrupt
       }
     }
-    localStorage.setItem("portfolio_projects", JSON.stringify(INITIAL_PROJECTS));
+    localStorage.setItem(STORAGE_PROJECTS_KEY, JSON.stringify(INITIAL_PROJECTS));
   }
   return INITIAL_PROJECTS;
 }
@@ -234,7 +238,7 @@ export async function saveProject(project: Partial<Project> & { id?: string }): 
 
   // Fallback / Demo Mode
   if (typeof window !== "undefined") {
-    const cached = localStorage.getItem("portfolio_projects");
+    const cached = localStorage.getItem(STORAGE_PROJECTS_KEY);
     const list: Project[] = cached ? JSON.parse(cached) : INITIAL_PROJECTS;
     
     if (project.id) {
@@ -245,12 +249,14 @@ export async function saveProject(project: Partial<Project> & { id?: string }): 
     } else {
       const newProj: Project = {
         title: project.title || "",
+        category: project.category || "Software & Cloud",
         description: project.description || "",
         long_description: project.long_description || "",
         technologies: project.technologies || [],
         image_url: project.image_url || "",
         project_url: project.project_url || "",
         github_url: project.github_url || "",
+        metrics: project.metrics || "",
         id: "project-" + Math.random().toString(36).substring(2, 9),
         created_at: new Date().toISOString(),
         sort_order: list.length,
@@ -258,7 +264,7 @@ export async function saveProject(project: Partial<Project> & { id?: string }): 
       list.push(newProj);
       project = newProj;
     }
-    localStorage.setItem("portfolio_projects", JSON.stringify(list));
+    localStorage.setItem(STORAGE_PROJECTS_KEY, JSON.stringify(list));
     return project as Project;
   }
   return project as Project;
@@ -272,10 +278,10 @@ export async function deleteProject(id: string): Promise<boolean> {
 
   // Fallback / Demo Mode
   if (typeof window !== "undefined") {
-    const cached = localStorage.getItem("portfolio_projects");
+    const cached = localStorage.getItem(STORAGE_PROJECTS_KEY);
     if (cached) {
       const list = (JSON.parse(cached) as Project[]).filter((p: Project) => p.id !== id);
-      localStorage.setItem("portfolio_projects", JSON.stringify(list));
+      localStorage.setItem(STORAGE_PROJECTS_KEY, JSON.stringify(list));
       return true;
     }
   }
@@ -293,7 +299,7 @@ export async function reorderProjectsInDB(projects: Project[]): Promise<void> {
 
   if (typeof window !== "undefined") {
     const updated = projects.map((p, index) => ({ ...p, sort_order: index }));
-    localStorage.setItem("portfolio_projects", JSON.stringify(updated));
+    localStorage.setItem(STORAGE_PROJECTS_KEY, JSON.stringify(updated));
   }
 }
 
