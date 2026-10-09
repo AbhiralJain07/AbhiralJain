@@ -13,9 +13,9 @@
 [![Three.js](https://img.shields.io/badge/Three.js-0.185-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
 [![GSAP](https://img.shields.io/badge/GSAP-3.15-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://greensock.com/gsap/)
 [![Lenis](https://img.shields.io/badge/Lenis-Smooth_Scroll-black?style=for-the-badge)](https://lenis.darkroom.engineering/)
-[![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Frontend Only](https://img.shields.io/badge/Architecture-Frontend_Static_Layer-00e5ff?style=for-the-badge)](https://github.com/AbhiralJain07/AbhiralJain)
 
-[**Live Experience**](https://github.com/AbhiralJain07/AbhiralJain) • [**Explore Projects**](#-featured-case-studies) • [**Architecture**](#-architecture--directory-map) • [**Terminal CLI**](#-interactive-terminal-cli-aj_os) • [**CMS Suite**](#-admin-cms--live-database-management) • [**Setup Guide**](#-quickstart--local-development)
+[**Live Experience**](https://github.com/AbhiralJain07/AbhiralJain) • [**Explore Projects**](#-featured-case-studies-showcased) • [**Architecture**](#-architecture--directory-map) • [**Components**](#-deep-dive-inside-out-component-breakdown) • [**Terminal CLI**](#-interactive-terminal-cli-aj_os) • [**Setup Guide**](#-quickstart--local-development)
 
 </div>
 
@@ -25,14 +25,14 @@
 
 This repository houses the personal portfolio and creative engineering showcase of **Abhiral Jain** — Full-Stack Developer, Machine Learning Engineer, and Researcher / Team Lead at **EvolVIT** (VIT Bhopal University, CSE AI & ML '28).
 
-Designed with an **industrial luxury / cyberpunk aesthetic**, the application merges cutting-edge web graphics with resilient full-stack architecture. Beyond static presentation, the portfolio is an interactive digital playground featuring:
+Designed with an **industrial luxury / cyberpunk aesthetic**, the application merges cutting-edge web graphics with a lightning-fast, pure frontend architecture. Beyond static presentation, the portfolio is an interactive digital playground featuring:
 
 - 🎮 **Client-Side ML Visitor Archetype Classifier (Analytics HUD)**: Real-time telemetry tracking cursor velocity, scroll physics, and interaction density to classify visitors into archetypes (*Explorer*, *Recruiter*, *Designer*, *Engineer*) and dynamically shift UI theme states.
 - 💻 **AJ_OS Interactive Terminal CLI**: Fully functional in-browser terminal with synthesized mechanical keystroke audio (Web Audio API), custom command parser, history navigation, and a Matrix digital rain canvas screensaver.
-- 🪐 **Interactive 3D Graphics**: Spline 3D embedded scenes, Three.js / React Three Fiber golden-ratio particle sphere, and 60fps GPU-accelerated parallax card tilting.
-- 📜 **Scroll-Driven Dynamic Media Expander**: Seamless physics-based scroll transitions expanding hero video/photography into full-bleed page flow.
-- 🗄️ **Dual-Mode Headless CMS & Admin Dashboard**: Full CRUD management with reordering, availability toggling, and live Supabase integration paired with an instant zero-config browser sandbox fallback.
-- ⚡ **Buttery 60fps Motion**: Lenis momentum smooth scrolling tightly synced with GSAP ScrollTrigger proxies and Framer Motion layout transitions.
+- 🪐 **Interactive 3D Graphics**: Three.js / React Three Fiber golden-ratio particle sphere, interactive screen-tracking 3D photo card, and 60fps GPU-accelerated parallax card tilting.
+- 🧩 **Modular Reusable Architecture**: High-cohesion, isolated UI components (`ProjectCard`, `ExperienceCard`, `SectionHeader`, `MetricsGrid`, `CategoryFilter`, `TechCategoryCard`, `PortalCard`) providing zero code duplication and instant maintainability.
+- ⚡ **Zero-Latency Frontend Data Layer**: Clean, type-safe data source (`src/lib/data.ts`) with synchronous TypeScript getters, eliminating external database roundtrips for maximum reliability.
+- 📜 **Buttery 60fps Motion**: Lenis momentum smooth scrolling tightly synced with GSAP ScrollTrigger proxies and Framer Motion layout transitions.
 
 ---
 
@@ -62,12 +62,12 @@ Designed with an **industrial luxury / cyberpunk aesthetic**, the application me
 
 | Layer | Technologies | Purpose |
 |---|---|---|
-| **Core Framework** | Next.js 14 (App Router), React 18, TypeScript 5 | Server Components, dynamic routing (`/projects/[id]`), metadata SEO, static optimization |
+| **Core Framework** | Next.js 14 (App Router), React 18, TypeScript 5 | Component architecture, dynamic routing (`/projects/[id]`), metadata SEO, static builds |
 | **Styling & Layout** | Tailwind CSS 3.4, PostCSS, Custom CSS Variables | Design tokens, responsive utility grid, neon glow shaders, custom scrollbars |
 | **Animation & Motion** | GSAP 3.15, ScrollTrigger, Framer Motion 13.1, Lenis 1.3 | Kinetic text masks, parallax depth layers, magnetic cursor, smooth momentum scroll |
-| **3D & Creative WebGL** | Three.js 0.185, `@react-three/fiber`, `@react-three/drei`, Spline (`@splinetool/react-spline`) | Golden-ratio particle sphere, ambient lighting, embedded interactive 3D robot scene |
+| **3D & Creative WebGL** | Three.js 0.185, `@react-three/fiber`, `@react-three/drei` | Golden-ratio particle sphere, ambient lighting, WebGL canvas renderers |
 | **Audio & Canvas** | Web Audio API, HTML5 Canvas 2D Context | Real-time mechanical click synthesizer, Matrix rain screensaver |
-| **Database & Auth** | Supabase JS 2.112, PostgreSQL, LocalStorage Sandbox Fallback | Headless CMS persistence, project CRUD, profile metadata, session management |
+| **Data Architecture** | Pure Frontend Data Layer (`src/lib/data.ts`) | Type-safe static portfolio data, synchronous getters, zero database latency |
 | **Icons & Assets** | Lucide React, Custom SVG Icons, Next/Image | Streamlined icons, optimized responsive images, layout shift prevention |
 
 ---
@@ -78,47 +78,54 @@ Designed with an **industrial luxury / cyberpunk aesthetic**, the application me
 AbhiralJain/
 ├── public/                               # Static distribution assets
 │   ├── Abhiral_Jain_Resume.pdf           # Primary verified PDF resume
-│   ├── resume.pdf                        # Resume alternate link
 │   ├── favicon.ico                       # Platform icon
-│   └── projects/                         # Project imagery & portrait cutouts
+│   ├── logo-white.png                    # Brand vector logo
+│   └── projects/                         # Project media assets & cutouts
 │       ├── abhiral1.jpeg                 # Main hero cutout portrait
 │       ├── abhiral2.jpeg                 # Secondary hero portrait variant
-│       ├── atithi.jpg                    # Atithi VMS mockup visual
-│       └── crashrisk.jpg                 # CrashRisk ML platform visual
+│       ├── atithi.jpg                    # Atithi VMS preview visual
+│       ├── crashrisk.jpg                 # CrashRisk ML platform visual
+│       └── itsm.jpg                      # ITSM Enterprise platform visual
 ├── src/
 │   ├── app/                              # Next.js App Router root
-│   │   ├── admin/                        # CMS Authentication & Management
-│   │   │   ├── dashboard/                # Protected CMS Workspace
-│   │   │   │   └── page.tsx              # Projects CRUD, bio editor, sorting, availability toggle
-│   │   │   └── page.tsx                  # Secure Admin Login gate (with Demo Sandbox)
+│   │   ├── experience-projects/          # Work history & featured projects showcase
+│   │   │   └── page.tsx                  # Career timeline + category-filtered project grid
+│   │   ├── tech-stack-resume/            # Skills matrix & official resume viewer
+│   │   │   └── page.tsx                  # Marquee ticker, domain categories & PDF downloader
+│   │   ├── get-in-touch/                 # Direct contact & communication hub
+│   │   │   └── page.tsx                  # Pre-filled mailto composer & clipboard copier
 │   │   ├── projects/
-│   │   │   └── [id]/                     # Dynamic Project Case Study Route
-│   │   │       └── page.tsx              # Deep-dive case study page with tech stacks & live links
-│   │   ├── globals.css                   # Tailwind directives, spring easings, custom scrollbars
+│   │   │   ├── [id]/                     # Dynamic Project Case Study Route
+│   │   │   │   └── page.tsx              # Deep-dive case study page with specs & live links
+│   │   │   └── page.tsx                  # Clean redirect to /experience-projects#projects-section
+│   │   ├── globals.css                   # Global theme tokens, spring easings, scrollbars
 │   │   ├── layout.tsx                    # Root layout with fonts (Inter & Syne), HUD, Cursor & CLI
-│   │   ├── page.tsx                      # Main single-page portfolio experience
-│   │   └── template.tsx                  # Framer Motion page wipe transition container
-│   ├── components/                       # Interactive UI micro-systems
-│   │   ├── ui/                           # Atoms & reusable UI primitives
-│   │   │   ├── card.tsx                  # Standardized card container component
-│   │   │   ├── scroll-expansion-hero.tsx # Scroll-driven hero video/image expansion system
-│   │   │   ├── scroll-expansion-demo.tsx # Demo sandbox for scroll expansion
-│   │   │   ├── splite.tsx                # Lazy-loaded Spline 3D scene wrapper
-│   │   │   ├── SplineDemo.tsx            # Standalone Spline 3D showcase demo
-│   │   │   └── spotlight.tsx             # Radial cursor spotlight gradient
-│   │   ├── AnalyticsHUD.tsx              # ML/Heuristic visitor archetype classifier & telemetry
+│   │   ├── page.tsx                      # Main landing page experience
+│   │   └── template.tsx                  # Framer Motion page transition container
+│   ├── components/                       # Modular Reusable UI Systems
+│   │   ├── ProjectCard.tsx               # Reusable project card with tags, live demo & GitHub links
+│   │   ├── ExperienceCard.tsx            # Reusable timeline card with organization, role & highlights
+│   │   ├── SectionHeader.tsx             # Standardized section header with cyan line & mono badge
+│   │   ├── MetricsGrid.tsx               # Executive metrics display (cards & compact modes)
+│   │   ├── CategoryFilter.tsx            # Pill-tab category selector buttons
+│   │   ├── TechCategoryCard.tsx          # Domain-wise technology skill card with icons
+│   │   ├── PortalCard.tsx                # Home page multi-portal directory navigation card
+│   │   ├── AnalyticsHUD.tsx              # ML visitor archetype classifier & real-time telemetry
 │   │   ├── CustomCursor.tsx              # Fluid dual-ring adaptive magnetic cursor
 │   │   ├── HeroParallax.tsx              # 3D interactive parallax tilt card & portrait reveal
+│   │   ├── InteractivePhotoCard.tsx      # Screen-tracking 3D perspective portrait visual
 │   │   ├── Icons.tsx                     # Custom GitHub & LinkedIn SVG brand icons
 │   │   ├── Magnetic.tsx                  # Physics-based spring pull wrapper for CTA buttons
 │   │   ├── ParticleSphere.tsx            # Three.js / R3F mathematical particle globe
 │   │   ├── SmoothScroll.tsx              # Lenis smooth scroll engine + GSAP ScrollTrigger proxy
-│   │   └── TerminalCLI.tsx               # AJ_OS interactive terminal drawer with Matrix mode
-│   └── lib/                              # Core utilities & database services
-│       ├── supabase.ts                   # Supabase client, schema models, and hybrid localStorage API
-│       └── utils.ts                      # Tailwind clsx/twMerge class utility (`cn`)
-├── components.json                       # shadcn/ui component configuration
-├── next.config.mjs                       # Remote image patterns & asset routing
+│   │   ├── TerminalCLI.tsx               # AJ_OS interactive terminal drawer with Matrix mode
+│   │   ├── Navbar.tsx                    # Glassmorphism floating header navigation
+│   │   └── Footer.tsx                    # Comprehensive platform footer & coordinates
+│   └── lib/                              # Core utilities & data services
+│       ├── data.ts                       # Verified static projects, experiences, and bio data
+│       ├── constants.ts                  # Shared project categories & skill arrays
+│       └── utils.ts                      # Class merger (`cn`) & image asset resolver
+├── next.config.mjs                       # Next.js configuration & image domains
 ├── package.json                          # Dependencies and script definitions
 ├── postcss.config.mjs                    # PostCSS plugin pipeline
 ├── tailwind.config.ts                    # Custom fonts, extended palette & theme tokens
@@ -167,8 +174,8 @@ An interactive command-line environment providing an alternative hacker-friendly
   - `about` — Prints Abhiral's background, roles, and engineering mission.
   - `resume` / `cv` — Triggers instant opening of verified resume PDF.
   - `skills` — Queries software stack (Frontend, Backend, ML, Database, Arch).
-  - `projects` — Lists all showcased database projects with index numbers.
-  - `project <n>` — Dumps full case study breakdown for a specific project.
+  - `projects` — Lists all showcased projects with index numbers.
+  - `project <n>` — Dumps full case study breakdown for a specific project index.
   - `hud` — Displays current telemetry diagnostics (archetype, cursor velocity, scroll depth).
   - `matrix` — Toggles the full-screen Matrix screensaver.
   - `clear` — Flushes terminal buffer history.
@@ -189,14 +196,7 @@ A multi-layered 3D perspective hero visual driven by GSAP `quickTo` 60fps interp
 
 ---
 
-### 4. `ScrollExpandMedia.tsx` — Hero Scroll Expander
-An immersive media container that translates user scroll wheel and touch drag gestures into a fluid expansion transition:
-- **Media Switcher**: Allows toggling between an ambient looping 4K cosmic video and high-resolution photography.
-- **Dynamic Unfold**: As the user scrolls, the centered media card dynamically expands to occupy 100% of the viewport width while revealing hero headline content and biography text.
-
----
-
-### 5. `ParticleSphere.tsx` — Three.js / React Three Fiber Globe
+### 4. `ParticleSphere.tsx` — Three.js / React Three Fiber Globe
 A lightweight WebGL sphere constructed with mathematical precision:
 - **Fibonacci Point Distribution**: Generates 1,500 point coordinates distributed evenly using spherical golden-ratio algorithms.
 - **Interactive Shaders**: Continuous subtle rotation combined with mouse-pointer lerp tilting and sinusoidal breathing wave pulses.
@@ -204,7 +204,7 @@ A lightweight WebGL sphere constructed with mathematical precision:
 
 ---
 
-### 6. `CustomCursor.tsx` — Adaptive Magnetic Cursor
+### 5. `CustomCursor.tsx` — Adaptive Magnetic Cursor
 - **Dual-Element Fluid Follower**: Small instantaneous inner dot + smoothed lagging outer ring using GSAP `quickTo`.
 - **Morphing Modes**:
   - *Default*: Sleek 32px ring with centered dot.
@@ -214,23 +214,20 @@ A lightweight WebGL sphere constructed with mathematical precision:
 
 ---
 
-### 7. `SmoothScroll.tsx` — Lenis + GSAP ScrollTrigger Engine
+### 6. `SmoothScroll.tsx` — Lenis + GSAP ScrollTrigger Engine
 - Synchronizes Lenis smooth scrolling with GSAP `ScrollTrigger.scrollerProxy` on `document.body`.
 - Ensures zero layout jank, prevents scroll-hijack conflicts with embedded iframes, and honors system accessibility preferences (`prefers-reduced-motion`).
 
 ---
 
-### 8. `Admin CMS & Dashboard` (`/admin` & `/admin/dashboard`)
-A full-featured portfolio management suite:
-- **Hybrid Data Architecture**:
-  - **Live Mode**: Synchronizes directly with Supabase PostgreSQL tables (`projects`, `profile`) and Supabase Auth.
-  - **Demo Sandbox Mode**: Automatically activates when Supabase environment variables are omitted, providing instant CRUD capabilities persisted to browser `localStorage` with predefined seed data.
-- **Capabilities**:
-  - Add, edit, and delete project case studies.
-  - Move projects up/down to reorder display priority on the live site.
-  - Live edit biography markdown/paragraphs.
-  - Instant toggle for availability status (*"Available for select opportunities"* vs. *"Unavailable / Building"*).
-  - Floating status toast notifications.
+### 7. Modular Reusable UI Architecture
+The presentation layer is built upon modular UI primitives located in `src/components/`:
+- **`ProjectCard.tsx`**: Encapsulates project media banner, category chip, live metric badges, tech badges, and magnetic GitHub/Demo buttons.
+- **`ExperienceCard.tsx`**: Renders structured career timeline cards with role tags, organization details, milestone highlights, and applied technologies.
+- **`SectionHeader.tsx`**: Standardizes visual section headers with cyan accent indicators and mono category labels.
+- **`MetricsGrid.tsx`**: Renders executive stats (`50+ Peers`, `100th Club`, `<200ms ML Latency`, `99.9% Reliability`) in both expansive and compact formats.
+- **`CategoryFilter.tsx`**: Reusable pill-tab selector for interactive category filtering.
+- **`TechCategoryCard.tsx`**: Domain-wise technology containers with icons and interactive hover states.
 
 ---
 
@@ -253,49 +250,15 @@ A full-featured portfolio management suite:
 │  • Simulator: 11-parameter interactive risk engine mapping non-obvious data │
 │  • Tech Stack: Python, Flask, Scikit-Learn, React, TypeScript, Render PaaS  │
 │  • Repository: https://github.com/AbhiralJain07/CrashRisk                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ 03. ITSM — Enterprise IT Service Management Platform                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  • Architecture: Realm-based multi-tenant isolation, 3-tier RBAC            │
+│  • Automation: C# Background SLA worker for automated breach detection      │
+│  • Analytics: Live telemetry & incident resolution charts (Recharts)        │
+│  • Tech Stack: Next.js, ASP.NET Core, TypeScript, C#, PostgreSQL, JWT       │
+│  • Repository: https://github.com/AbhiralJain07/ITSM                        │
 └─────────────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 📊 Database Schema (Supabase / PostgreSQL)
-
-If connecting a live Supabase instance, execute the following SQL migration:
-
-```sql
--- 1. Create Projects Table
-create table public.projects (
-  id text primary key default concat('project-', replace(gen_random_uuid()::text, '-', '')),
-  title text not null,
-  description text not null,
-  long_description text not null,
-  technologies text[] not null default '{}',
-  image_url text default '',
-  project_url text default '',
-  github_url text default '',
-  sort_order integer default 0,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
-
--- 2. Create Profile Table
-create table public.profile (
-  id uuid primary key default gen_random_uuid(),
-  bio_text text not null,
-  availability_status boolean default true not null,
-  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
-
--- 3. Enable Row Level Security (RLS)
-alter table public.projects enable row level security;
-alter table public.profile enable row level security;
-
--- Public Read Access Policies
-create policy "Allow Public Read Projects" on public.projects for select using (true);
-create policy "Allow Public Read Profile" on public.profile for select using (true);
-
--- Authenticated Admin Write Access Policies
-create policy "Allow Admin Manage Projects" on public.projects for all using (auth.role() = 'authenticated');
-create policy "Allow Admin Manage Profile" on public.profile for all using (auth.role() = 'authenticated');
 ```
 
 ---
@@ -321,26 +284,12 @@ yarn install
 pnpm install
 ```
 
-### 3. Configure Environment Variables (Optional)
-Create a `.env.local` file in the root directory:
-
-```env
-# Optional: Connect your live Supabase database
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-```
-
-> **Note**: If you do not provide Supabase credentials, the app **automatically operates in Demo Sandbox Mode**. You can log into `/admin` using:
-> - **Email**: `admin`
-> - **Password**: `admin`
-> All edits will be stored safely in your browser's local sandbox.
-
-### 4. Start the Development Server
+### 3. Start the Development Server
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser. All data loads instantly from the type-safe static data layer (`src/lib/data.ts`) with zero external database configuration required.
 
 ---
 
@@ -354,7 +303,7 @@ Open the terminal anywhere by pressing `` ` `` (backtick) or clicking **CLI / Te
 | `about` | — | Prints developer profile, roles, and engineering philosophy |
 | `resume` / `cv` | — | Opens and triggers download of Abhiral's verified PDF resume |
 | `skills` | — | Queries complete technical stack (Frontend, Backend, ML, Database) |
-| `projects` | — | Lists all projects currently in the database |
+| `projects` | — | Lists all showcased projects with index numbers |
 | `project` | `<index>` | Inspects deep-dive case study for project at index `n` (e.g. `project 1`) |
 | `hud` | — | Dumps live telemetry snapshot (archetype, cursor velocity, dwell time) |
 | `matrix` | — | Triggers full-screen interactive Matrix digital rain screensaver |
@@ -370,11 +319,10 @@ The easiest way to deploy this portfolio is using [Vercel](https://vercel.com):
 
 1. Push your repository to GitHub.
 2. Import the repository into your Vercel Dashboard.
-3. Configure the `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` environment variables if using Supabase.
-4. Deploy!
+3. Deploy! (Zero environment variable configuration needed).
 
-### Production Build Check
-To test the production build locally before deployment:
+### Production Build Verification
+To test the production bundle locally:
 ```bash
 npm run build
 npm run start
