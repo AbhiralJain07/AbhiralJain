@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   description: "Personal portfolio of Abhiral Jain, featuring high-end web designs, full-stack systems, and machine learning models with sub-200ms inference.",
   keywords: ["Abhiral Jain", "Developer Portfolio", "Full Stack Developer", "Machine Learning Engineer", "Next.js", "Three.js", "GSAP Portfolio"],
   icons: {
-    icon: "/favicon.ico",
+    icon: "/logo-white.png",
   },
 };
 
