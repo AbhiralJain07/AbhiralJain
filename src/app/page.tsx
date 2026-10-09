@@ -2,23 +2,16 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Briefcase,
-  Layers,
-  Send,
-  Sparkles,
-  ShieldCheck,
-  Cpu,
-  Users,
-  Award,
-} from "lucide-react";
+import { Briefcase, Layers, Send, Sparkles } from "lucide-react";
 import HeroParallax from "@/components/HeroParallax";
 import InteractivePhotoCard from "@/components/InteractivePhotoCard";
+import SectionHeader from "@/components/SectionHeader";
+import MetricsGrid from "@/components/MetricsGrid";
+import PortalCard from "@/components/PortalCard";
+import Magnetic from "@/components/Magnetic";
+import { getProfile, Profile } from "@/lib/data";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Magnetic from "@/components/Magnetic";
-import { getProfile, Profile } from "@/lib/supabase";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -93,7 +86,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-[#0b0b0c] text-[#f5f5f7] selection:bg-accent selection:text-black">
-      
       {/* Background ambient glow */}
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-accent/5 rounded-full blur-[140px] -z-10" />
 
@@ -127,10 +119,8 @@ export default function Home() {
 
         {/* Hero 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center my-auto py-4">
-          
           {/* Left Column: Identity, Role, Value Prop, CTAs & Specs */}
           <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
-            
             {/* Professional Identity Badge */}
             <div className="reveal-fade inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 backdrop-blur-sm shadow-[0_0_15px_rgba(0,229,255,0.08)]">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
@@ -143,7 +133,9 @@ export default function Home() {
             <div className="reveal-fade space-y-1">
               <h1 className="text-5xl sm:text-6xl md:text-7xl xl:text-[5.25rem] font-display font-extrabold uppercase tracking-tight leading-[0.92]">
                 <span className="text-[#f5f5f7]">ABHIRAL</span>{" "}
-                <span className="text-accent drop-shadow-[0_0_30px_rgba(0,229,255,0.45)]">JAIN</span>
+                <span className="text-accent drop-shadow-[0_0_30px_rgba(0,229,255,0.45)]">
+                  JAIN
+                </span>
               </h1>
             </div>
 
@@ -160,7 +152,9 @@ export default function Home() {
                   className="group inline-flex items-center space-x-2.5 px-7 py-4 rounded-full bg-accent text-black font-bold text-xs uppercase tracking-widest hover:bg-[#00c5dd] hover:shadow-[0_0_25px_rgba(0,229,255,0.45)] transition-all duration-300 transform hover:-translate-y-0.5"
                 >
                   <span>VIEW MY WORK</span>
-                  <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
                 </Link>
               </Magnetic>
 
@@ -173,7 +167,9 @@ export default function Home() {
                   className="group inline-flex items-center space-x-2.5 px-7 py-4 rounded-full border border-borderDark hover:border-accent bg-[#121214]/80 hover:bg-[#151518] text-zinc-200 hover:text-white font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_20px_rgba(0,229,255,0.15)] transition-all duration-300 transform hover:-translate-y-0.5"
                 >
                   <span>DOWNLOAD RESUME</span>
-                  <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
+                  <span className="text-sm font-bold transition-transform duration-300 group-hover:translate-y-0.5">
+                    ↓
+                  </span>
                 </a>
               </Magnetic>
             </div>
@@ -198,14 +194,12 @@ export default function Home() {
                 <span>Dev Lead</span>
               </div>
             </div>
-
           </div>
 
           {/* Right Column: 3D Interactive HUD Portrait Card */}
           <div className="lg:col-span-5 reveal-fade flex items-center justify-center">
             <HeroParallax />
           </div>
-
         </div>
 
         {/* Scroll cue indicator */}
@@ -231,16 +225,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Bio text column */}
           <div className="space-y-8 order-2 lg:order-1">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-[1px] bg-accent" />
-              <span className="text-xs tracking-widest uppercase text-accent font-bold font-mono">
-                01 / Biography
-              </span>
-            </div>
-
-            <h2 className="text-3xl md:text-5xl font-display font-bold leading-tight uppercase">
-              Building software that actually solves real problems.
-            </h2>
+            <SectionHeader
+              badge="01 / Biography"
+              title="Building software that actually solves real problems."
+            />
 
             <div className="text-zinc-400 font-light text-base md:text-lg leading-relaxed space-y-6">
               <p>
@@ -252,29 +240,8 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Core quick stats pill bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4">
-              <div className="p-3.5 rounded-xl border border-borderDark bg-[#121214]/60">
-                <Users className="text-accent mb-1" size={16} />
-                <div className="text-xl font-display font-bold text-[#f5f5f7]">50+</div>
-                <div className="text-[10px] font-mono text-zinc-500 uppercase">Peers Mentored</div>
-              </div>
-              <div className="p-3.5 rounded-xl border border-borderDark bg-[#121214]/60">
-                <Award className="text-accent mb-1" size={16} />
-                <div className="text-xl font-display font-bold text-[#f5f5f7]">100th</div>
-                <div className="text-[10px] font-mono text-zinc-500 uppercase">Club Founded</div>
-              </div>
-              <div className="p-3.5 rounded-xl border border-borderDark bg-[#121214]/60">
-                <Cpu className="text-accent mb-1" size={16} />
-                <div className="text-xl font-display font-bold text-[#f5f5f7]">&lt;200ms</div>
-                <div className="text-[10px] font-mono text-zinc-500 uppercase">ML Latency</div>
-              </div>
-              <div className="p-3.5 rounded-xl border border-borderDark bg-[#121214]/60">
-                <ShieldCheck className="text-accent mb-1" size={16} />
-                <div className="text-xl font-display font-bold text-[#f5f5f7]">DPDP</div>
-                <div className="text-[10px] font-mono text-zinc-500 uppercase">Act Compliant</div>
-              </div>
-            </div>
+            {/* Compact Metric Stats Strip */}
+            <MetricsGrid variant="compact" className="pt-4" />
           </div>
 
           {/* Interactive Screen-Tracking 3D Photo Component */}
@@ -289,122 +256,39 @@ export default function Home() {
         ref={portalSectionRef}
         className="w-full py-24 px-6 md:px-12 border-t border-borderDark relative bg-gradient-to-b from-transparent via-[#0f0f12] to-transparent"
       >
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-[1px] bg-accent" />
-                <span className="text-xs tracking-widest uppercase text-accent font-bold font-mono">
-                  02 / Site Directory
-                </span>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-display font-bold uppercase leading-tight">
-                Explore Dedicated Sections.
-              </h2>
-            </div>
-            <p className="text-zinc-400 font-light text-sm md:text-base max-w-md">
-              Navigate through focused pages dedicated to industry experience, production projects, verified skills, and direct contact.
-            </p>
-          </div>
+        <div className="max-w-7xl mx-auto w-full space-y-16">
+          <SectionHeader
+            badge="02 / Site Directory"
+            title="Explore Dedicated Sections."
+            subtitle="Navigate through focused pages dedicated to industry experience, production projects, verified skills, and direct contact."
+          />
 
           {/* 3 Primary Navigation Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Card 1: Experience & Projects */}
-            <Link
+            <PortalCard
               href="/experience-projects"
-              className="portal-card group p-8 rounded-2xl border border-borderDark bg-[#121214]/80 hover:bg-[#151518] hover:border-accent transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[320px] shadow-xl"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-full pointer-events-none group-hover:bg-accent/10 transition-colors" />
-              
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-300">
-                    <Briefcase size={22} />
-                  </div>
-                  <span className="font-mono text-xs text-zinc-500 group-hover:text-accent transition-colors">
-                    01 / PAGE
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-display font-bold text-[#f5f5f7] group-hover:text-accent transition-colors">
-                  Experience & Projects
-                </h3>
-
-                <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                  Career trajectory at EvolVIT, WeWin, and DataTrack, coupled with deep-dives into production software like Atithi & CrashRisk.
-                </p>
-              </div>
-
-              <div className="pt-6 border-t border-borderDark/60 flex items-center justify-between text-xs font-mono uppercase tracking-wider text-accent font-semibold">
-                <span>View Timeline & Works</span>
-                <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </div>
-            </Link>
-
-            {/* Card 2: Tech Stack & Resume */}
-            <Link
+              icon={Briefcase}
+              pageNumber="01"
+              title="Experience & Projects"
+              description="Career trajectory at EvolVIT, WeWin, and DataTrack, coupled with deep-dives into production software like Atithi & CrashRisk."
+              actionText="View Timeline & Works"
+            />
+            <PortalCard
               href="/tech-stack-resume"
-              className="portal-card group p-8 rounded-2xl border border-borderDark bg-[#121214]/80 hover:bg-[#151518] hover:border-accent transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[320px] shadow-xl"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-full pointer-events-none group-hover:bg-accent/10 transition-colors" />
-
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-300">
-                    <Layers size={22} />
-                  </div>
-                  <span className="font-mono text-xs text-zinc-500 group-hover:text-accent transition-colors">
-                    02 / PAGE
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-display font-bold text-[#f5f5f7] group-hover:text-accent transition-colors">
-                  Tech Stack & Resume
-                </h3>
-
-                <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                  Interactive technology breakdown, marquee animations, architectural toolsets, and immediate official resume PDF download.
-                </p>
-              </div>
-
-              <div className="pt-6 border-t border-borderDark/60 flex items-center justify-between text-xs font-mono uppercase tracking-wider text-accent font-semibold">
-                <span>Inspect Stack & Download CV</span>
-                <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </div>
-            </Link>
-
-            {/* Card 3: Get in Touch */}
-            <Link
+              icon={Layers}
+              pageNumber="02"
+              title="Tech Stack & Resume"
+              description="Interactive technology breakdown, marquee animations, architectural toolsets, and immediate official resume PDF download."
+              actionText="Inspect Stack & Download CV"
+            />
+            <PortalCard
               href="/get-in-touch"
-              className="portal-card group p-8 rounded-2xl border border-borderDark bg-[#121214]/80 hover:bg-[#151518] hover:border-accent transition-all duration-500 relative overflow-hidden flex flex-col justify-between min-h-[320px] shadow-xl"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-full pointer-events-none group-hover:bg-accent/10 transition-colors" />
-
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:scale-110 transition-transform duration-300">
-                    <Send size={22} />
-                  </div>
-                  <span className="font-mono text-xs text-zinc-500 group-hover:text-accent transition-colors">
-                    03 / PAGE
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-display font-bold text-[#f5f5f7] group-hover:text-accent transition-colors">
-                  Get in Touch
-                </h3>
-
-                <p className="text-sm text-zinc-400 font-light leading-relaxed">
-                  Direct email communication, verified LinkedIn & GitHub coordinates, and instant contact channels for collaborations.
-                </p>
-              </div>
-
-              <div className="pt-6 border-t border-borderDark/60 flex items-center justify-between text-xs font-mono uppercase tracking-wider text-accent font-semibold">
-                <span>Initiate Contact</span>
-                <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </div>
-            </Link>
+              icon={Send}
+              pageNumber="03"
+              title="Get in Touch"
+              description="Direct email communication, verified LinkedIn & GitHub coordinates, and instant contact channels for collaborations."
+              actionText="Initiate Contact"
+            />
           </div>
         </div>
       </section>

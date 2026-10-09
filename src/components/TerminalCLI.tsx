@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Terminal, X } from "lucide-react";
-import { getProjects, Project } from "@/lib/supabase";
+import { getProjects, Project } from "@/lib/data";
 import gsap from "gsap";
 
 interface LogLine {
@@ -23,21 +23,12 @@ export default function TerminalCLI() {
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isMatrix, setIsMatrix] = useState(false);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects] = useState<Project[]>(getProjects());
 
   const drawerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const historyEndRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  // Fetch projects database on mount
-  useEffect(() => {
-    async function loadData() {
-      const data = await getProjects();
-      setProjects(data);
-    }
-    loadData();
-  }, []);
 
   // Web Audio keypress click synthesizer
   const playKeyPressSound = () => {

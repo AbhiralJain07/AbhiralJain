@@ -1,0 +1,118 @@
+import {
+  Code2,
+  Cpu,
+  Database,
+  Globe,
+  Server,
+  Shield,
+} from "lucide-react";
+import { TechCategory } from "@/components/TechCategoryCard";
+
+export const PROJECT_CATEGORIES = [
+  "All",
+  "Full-Stack & Security",
+  "Machine Learning & AI",
+  "Cloud & Automation",
+] as const;
+
+export const TECH_CATEGORIES: TechCategory[] = [
+  {
+    title: "Core Languages & Foundations",
+    icon: Code2,
+    skills: ["TypeScript", "JavaScript", "Python", "C++", "SQL", "HTML5/CSS3"],
+  },
+  {
+    title: "Frontend & Creative Engineering",
+    icon: Globe,
+    skills: [
+      "React",
+      "Next.js 14",
+      "Tailwind CSS",
+      "Three.js",
+      "GSAP",
+      "Framer Motion",
+      "Lenis Scroll",
+    ],
+  },
+  {
+    title: "Backend & Microservices",
+    icon: Server,
+    skills: [
+      "Node.js",
+      "Express.js",
+      "Flask",
+      "FastAPI",
+      "REST APIs",
+      "JWT Auth",
+      "RBAC Security",
+      "Clean Architecture",
+    ],
+  },
+  {
+    title: "Machine Learning & AI Systems",
+    icon: Cpu,
+    skills: [
+      "Scikit-learn",
+      "Gradient Boosting",
+      "NumPy",
+      "Pandas",
+      "Matplotlib",
+      "InsightFace API",
+      "LangChain",
+      "Vector Embeddings",
+    ],
+  },
+  {
+    title: "Databases & In-Memory Storage",
+    icon: Database,
+    skills: ["PostgreSQL", "MongoDB", "Redis", "Supabase"],
+  },
+  {
+    title: "DevOps, Automation & Standards",
+    icon: Shield,
+    skills: [
+      "n8n.io Automation",
+      "Docker",
+      "Render",
+      "Vercel",
+      "Git / GitHub",
+      "RabbitMQ",
+      "DPDP Act 2023 Compliance",
+    ],
+  },
+];
+
+export const ALL_SKILL_TAGS = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "Node.js",
+  "Express.js",
+  "Python",
+  "Flask",
+  "FastAPI",
+  "MongoDB",
+  "PostgreSQL",
+  "Redis",
+  "JWT Auth",
+  "RBAC Security",
+  "DPDP Act Compliance",
+  "InsightFace API",
+  "Scikit-learn",
+  "NumPy",
+  "Pandas",
+  "Matplotlib",
+  "Gradient Boosting",
+  "Vercel",
+  "Render",
+  "n8n.io",
+  "Git/GitHub",
+  "RabbitMQ",
+  "Clean Architecture",
+  "Tailwind CSS",
+  "Framer Motion",
+  "Three.js",
+  "R3F",
+  "Lenis Scroll",
+  "Docker",
+];

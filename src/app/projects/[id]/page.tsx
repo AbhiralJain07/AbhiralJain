@@ -8,7 +8,8 @@ import { ArrowLeft, ExternalLink, Code, ArrowUpRight } from "lucide-react";
 import { Github } from "@/components/Icons";
 import gsap from "gsap";
 import Magnetic from "@/components/Magnetic";
-import { getProjects, Project } from "@/lib/supabase";
+import { getProjectById, Project } from "@/lib/data";
+import { getProjectImage } from "@/lib/utils";
 
 export default function ProjectDetail() {
   const params = useParams();
@@ -18,13 +19,9 @@ export default function ProjectDetail() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadProject() {
-      const list = await getProjects();
-      const found = list.find((p: Project) => p.id === id);
-      setProject(found || null);
-      setLoading(false);
-    }
-    loadProject();
+    const found = getProjectById(id);
+    setProject(found || null);
+    setLoading(false);
   }, [id]);
 
   useEffect(() => {
@@ -58,14 +55,6 @@ export default function ProjectDetail() {
       </div>
     );
   }
-
-  const getProjectImage = (imgKey: string) => {
-    if (imgKey === "atithi") return "/projects/atithi.jpg";
-    if (imgKey === "crashrisk") return "/projects/crashrisk.jpg";
-    if (imgKey === "itsm" || imgKey === "flowsync") return "/projects/itsm.jpg";
-    if (imgKey?.startsWith("http") || imgKey?.startsWith("/")) return imgKey;
-    return null;
-  };
 
   const imageSource = getProjectImage(project.image_url);
   const hasLiveDemo =
