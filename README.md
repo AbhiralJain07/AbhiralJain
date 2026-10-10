@@ -337,7 +337,7 @@ npm run start
 🎓 **B.Tech Computer Science & Engineering (AI & ML)** — VIT Bhopal University (2024 – 2028)  
 🏢 **Lead Researcher & Development Lead** — EvolVIT  
 
-- **Portfolio**: [https://github.com/AbhiralJain07/AbhiralJain](https://github.com/AbhiralJain07/AbhiralJain)
+- **Portfolio**: [https://github.com/AbhiralJain07/AbhiralJain](https://abhiral-jain.vercel.app/)
 - **LinkedIn**: [linkedin.com/in/jainabhiral](https://www.linkedin.com/in/jainabhiral/)
 - **GitHub**: [@AbhiralJain07](https://github.com/AbhiralJain07)
 - **Email**: [jainabhiral7@gmail.com](mailto:jainabhiral7@gmail.com)
